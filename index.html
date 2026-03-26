@@ -1,0 +1,4264 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Seabreeze CRM – Godrej Bayview</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #f4f6f9;
+        --surface: #fff;
+        --surface2: #f8f9fb;
+        --border: #e8ecf0;
+        --text: #1a2233;
+        --text-2: #5a6478;
+        --text-3: #9aa3b2;
+        --accent: #1a6bff;
+        --accent-soft: #e8f0ff;
+        --teal: #0d9488;
+        --teal-soft: #e0f2f0;
+        --amber: #d97706;
+        --amber-soft: #fef3c7;
+        --rose: #e11d48;
+        --rose-soft: #ffe4ec;
+        --green: #16a34a;
+        --green-soft: #dcfce7;
+        --purple: #7c3aed;
+        --purple-soft: #ede9fe;
+        --sidebar-w: 220px;
+        --radius: 12px;
+        --radius-sm: 8px;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "DM Sans", sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        font-size: 14px;
+        line-height: 1.5;
+        display: flex;
+        min-height: 100vh;
+      }
+
+      /* ── SIDEBAR ── */
+      .sidebar {
+        width: var(--sidebar-w);
+        background: var(--surface);
+        border-right: 1px solid var(--border);
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        z-index: 10;
+        padding: 24px 0;
+        overflow-y: auto;
+      }
+      .brand {
+        padding: 0 20px 20px;
+        border-bottom: 1px solid var(--border);
+      }
+      .brand-tag {
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--text-3);
+        margin-bottom: 4px;
+      }
+      .brand-name {
+        font-family: "DM Serif Display", serif;
+        font-size: 17px;
+        color: var(--text);
+        line-height: 1.2;
+      }
+      .brand-name span {
+        color: var(--accent);
+      }
+      .nav {
+        padding: 12px 10px;
+        flex: 1;
+      }
+      .nav-label {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--text-3);
+        padding: 0 8px;
+        margin: 14px 0 5px;
+      }
+      .nav-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 9px 10px;
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        color: var(--text-2);
+        font-weight: 500;
+        transition: all 0.15s;
+        font-size: 13px;
+        user-select: none;
+      }
+      .nav-item:hover {
+        background: var(--bg);
+        color: var(--text);
+      }
+      .nav-item.active {
+        background: var(--accent-soft);
+        color: var(--accent);
+      }
+      .nav-item svg {
+        width: 15px;
+        height: 15px;
+        flex-shrink: 0;
+      }
+      .nav-badge {
+        margin-left: auto;
+        background: var(--accent);
+        color: #fff;
+        font-size: 10px;
+        font-weight: 700;
+        border-radius: 20px;
+        padding: 1px 7px;
+      }
+      .sidebar-footer {
+        padding: 14px 18px;
+        border-top: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .avatar {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--accent), #5b8fff);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        font-weight: 700;
+        color: #fff;
+        flex-shrink: 0;
+      }
+      .avatar-name {
+        font-weight: 600;
+        font-size: 13px;
+      }
+      .avatar-role {
+        font-size: 11px;
+        color: var(--text-3);
+      }
+
+      /* ── MAIN ── */
+      .main {
+        margin-left: var(--sidebar-w);
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+      }
+      .topbar {
+        background: var(--surface);
+        border-bottom: 1px solid var(--border);
+        padding: 13px 26px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: sticky;
+        top: 0;
+        z-index: 5;
+      }
+      .topbar-left h1 {
+        font-size: 17px;
+        font-weight: 600;
+      }
+      .topbar-left p {
+        font-size: 12px;
+        color: var(--text-3);
+        margin-top: 1px;
+      }
+      .topbar-right {
+        display: flex;
+        gap: 9px;
+        align-items: center;
+      }
+
+      /* BUTTONS */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 14px;
+        border-radius: var(--radius-sm);
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        font-family: inherit;
+        transition: all 0.15s;
+        white-space: nowrap;
+      }
+      .btn-primary {
+        background: var(--accent);
+        color: #fff;
+      }
+      .btn-primary:hover {
+        background: #1558e0;
+      }
+      .btn-ghost {
+        background: transparent;
+        color: var(--text-2);
+        border: 1px solid var(--border);
+      }
+      .btn-ghost:hover {
+        background: var(--bg);
+      }
+      .btn-sm {
+        padding: 5px 11px;
+        font-size: 12px;
+      }
+      .btn-danger {
+        background: var(--rose-soft);
+        color: var(--rose);
+        border: 1px solid #fbc4d0;
+      }
+      .btn-danger:hover {
+        background: #ffd0dc;
+      }
+      .btn-success {
+        background: var(--green-soft);
+        color: var(--green);
+        border: 1px solid #a7f3c0;
+      }
+      .btn-success:hover {
+        background: #bbf7d0;
+      }
+      .btn svg {
+        width: 13px;
+        height: 13px;
+      }
+
+      /* PAGE WRAPPER */
+      .page {
+        display: none;
+        padding: 22px 26px;
+        flex-direction: column;
+        gap: 18px;
+      }
+      .page.active {
+        display: flex;
+      }
+
+      /* ── SHARED COMPONENTS ── */
+      .page-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .page-title {
+        font-size: 16px;
+        font-weight: 700;
+      }
+      .page-sub {
+        font-size: 13px;
+        color: var(--text-3);
+        margin-top: 2px;
+      }
+
+      .stats-row {
+        display: grid;
+        gap: 12px;
+      }
+      .stats-row.cols-4 {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      .stats-row.cols-3 {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .stat-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 16px 18px;
+      }
+      .stat-top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        margin-bottom: 10px;
+      }
+      .stat-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: var(--radius-sm);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .stat-icon svg {
+        width: 17px;
+        height: 17px;
+      }
+      .stat-badge {
+        font-size: 11px;
+        font-weight: 600;
+        padding: 3px 8px;
+        border-radius: 20px;
+      }
+      .stat-value {
+        font-size: 26px;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+        line-height: 1;
+      }
+      .stat-label {
+        font-size: 12px;
+        color: var(--text-3);
+        margin-top: 3px;
+      }
+      .stat-sub {
+        font-size: 12px;
+        color: var(--text-2);
+        margin-top: 6px;
+      }
+
+      /* DATA TABLE SECTION */
+      .data-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+      }
+      .data-card-header {
+        padding: 14px 18px;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .data-card-title {
+        font-size: 14px;
+        font-weight: 700;
+      }
+      .toolbar {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .search-box {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        padding: 7px 11px;
+        min-width: 200px;
+      }
+      .search-box svg {
+        width: 13px;
+        height: 13px;
+        color: var(--text-3);
+        flex-shrink: 0;
+      }
+      .search-box input {
+        border: none;
+        background: transparent;
+        font-family: inherit;
+        font-size: 13px;
+        color: var(--text);
+        outline: none;
+        width: 100%;
+      }
+      select.filter-sel {
+        padding: 7px 10px;
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--border);
+        background: var(--surface2);
+        font-family: inherit;
+        font-size: 13px;
+        color: var(--text);
+        cursor: pointer;
+        outline: none;
+      }
+
+      /* TABLE */
+      .tbl-wrap {
+        overflow-x: auto;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 600px;
+      }
+      thead tr {
+        border-bottom: 1px solid var(--border);
+      }
+      th {
+        padding: 9px 14px;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--text-3);
+        text-align: left;
+        background: var(--surface2);
+      }
+      td {
+        padding: 11px 14px;
+        border-bottom: 1px solid var(--border);
+        font-size: 13px;
+        vertical-align: middle;
+      }
+      tbody tr:last-child td {
+        border-bottom: none;
+      }
+      tbody tr:hover td {
+        background: var(--bg);
+      }
+      .td-name {
+        font-weight: 600;
+      }
+      .td-sub {
+        color: var(--text-3);
+        font-size: 11px;
+        margin-top: 1px;
+      }
+
+      /* BADGES */
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 3px 9px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+      .badge-dot {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+      }
+
+      /* ROW ACTIONS */
+      .row-acts {
+        display: flex;
+        gap: 5px;
+      }
+
+      /* EMPTY STATE */
+      .empty-state {
+        padding: 40px;
+        text-align: center;
+        color: var(--text-3);
+      }
+      .empty-state .ei {
+        font-size: 36px;
+        margin-bottom: 10px;
+      }
+      .empty-state p {
+        font-size: 13px;
+      }
+
+      /* ── MODAL ── */
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 20, 35, 0.45);
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s;
+      }
+      .modal-overlay.open {
+        opacity: 1;
+        pointer-events: all;
+      }
+      .modal {
+        background: var(--surface);
+        border-radius: var(--radius);
+        width: 500px;
+        max-width: 96vw;
+        max-height: 90vh;
+        overflow-y: auto;
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.18);
+        transform: translateY(10px);
+        transition: transform 0.2s;
+      }
+      .modal-overlay.open .modal {
+        transform: translateY(0);
+      }
+      .modal-hd {
+        padding: 18px 22px 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: sticky;
+        top: 0;
+        background: var(--surface);
+        z-index: 1;
+      }
+      .modal-title {
+        font-size: 15px;
+        font-weight: 700;
+      }
+      .modal-close {
+        width: 28px;
+        height: 28px;
+        border-radius: 6px;
+        border: 1px solid var(--border);
+        background: transparent;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        color: var(--text-3);
+        font-family: inherit;
+        line-height: 1;
+      }
+      .modal-close:hover {
+        background: var(--bg);
+      }
+      .modal-body {
+        padding: 18px 22px;
+      }
+      .modal-ft {
+        padding: 0 22px 18px;
+        display: flex;
+        gap: 8px;
+        justify-content: flex-end;
+      }
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-bottom: 12px;
+      }
+      .form-grid.full {
+        grid-template-columns: 1fr;
+      }
+      .fg {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+      .flabel {
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--text-3);
+      }
+      .finput {
+        padding: 8px 11px;
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--border);
+        font-family: inherit;
+        font-size: 13px;
+        color: var(--text);
+        outline: none;
+        background: var(--surface2);
+        transition: border-color 0.15s;
+        width: 100%;
+      }
+      .finput:focus {
+        border-color: var(--accent);
+      }
+
+      /* DETAIL CARD in modal */
+      .detail-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+        margin-bottom: 18px;
+      }
+      .detail-item .dl {
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--text-3);
+        margin-bottom: 3px;
+      }
+      .detail-item .dv {
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      /* TIMELINE */
+      .timeline {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+      .tl-item {
+        display: flex;
+        gap: 12px;
+        padding: 10px 0;
+        border-left: 2px solid var(--border);
+        margin-left: 8px;
+        padding-left: 16px;
+        position: relative;
+      }
+      .tl-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        position: absolute;
+        left: -6px;
+        top: 14px;
+        flex-shrink: 0;
+      }
+      .tl-text {
+        font-size: 13px;
+        font-weight: 500;
+      }
+      .tl-time {
+        font-size: 11px;
+        color: var(--text-3);
+        margin-top: 2px;
+      }
+
+      /* KANBAN (bookings) */
+      .kanban {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+      }
+      .kboard {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+      }
+      .kboard-hd {
+        padding: 12px 14px;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .kboard-title {
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+      .kboard-count {
+        font-size: 11px;
+        font-weight: 700;
+        padding: 2px 8px;
+        border-radius: 20px;
+      }
+      .kboard-body {
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .kcard {
+        background: var(--surface2);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        padding: 12px;
+        cursor: pointer;
+        transition: box-shadow 0.15s;
+      }
+      .kcard:hover {
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+      }
+      .kcard-name {
+        font-weight: 600;
+        font-size: 13px;
+        margin-bottom: 4px;
+      }
+      .kcard-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 12px;
+        color: var(--text-2);
+        margin-top: 3px;
+      }
+      .kcard-amount {
+        font-weight: 700;
+        color: var(--green);
+        font-size: 13px;
+      }
+
+      /* ANALYTICS */
+      .an-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+      .an-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 18px;
+      }
+      .an-title {
+        font-size: 13px;
+        font-weight: 700;
+        margin-bottom: 14px;
+      }
+      .bar-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 8px;
+      }
+      .bar-label {
+        font-size: 12px;
+        color: var(--text-2);
+        width: 80px;
+        flex-shrink: 0;
+        text-align: right;
+      }
+      .bar-track {
+        flex: 1;
+        height: 8px;
+        background: var(--bg);
+        border-radius: 4px;
+        overflow: hidden;
+      }
+      .bar-fill {
+        height: 100%;
+        border-radius: 4px;
+      }
+      .bar-val {
+        font-size: 12px;
+        font-weight: 600;
+        width: 30px;
+        flex-shrink: 0;
+      }
+      .donut-wrap {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+      .donut-legend {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .donut-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+      }
+      .donut-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+
+      /* FOLLOWUPS */
+      .fu-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .fu-item {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 14px 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .fu-info {
+        flex: 1;
+      }
+      .fu-name {
+        font-weight: 600;
+        font-size: 14px;
+      }
+      .fu-meta {
+        font-size: 12px;
+        color: var(--text-3);
+        margin-top: 2px;
+      }
+      .fu-acts {
+        display: flex;
+        gap: 7px;
+      }
+
+      /* CAMPAIGNS */
+      .camp-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+      }
+      .camp-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 18px;
+      }
+      .camp-icon {
+        font-size: 28px;
+        margin-bottom: 10px;
+      }
+      .camp-name {
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 4px;
+      }
+      .camp-meta {
+        font-size: 12px;
+        color: var(--text-3);
+        margin-bottom: 14px;
+      }
+      .camp-stat {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 6px;
+      }
+      .camp-stat-label {
+        font-size: 12px;
+        color: var(--text-2);
+      }
+      .camp-stat-val {
+        font-size: 12px;
+        font-weight: 700;
+      }
+      .camp-progress {
+        height: 6px;
+        background: var(--bg);
+        border-radius: 3px;
+        overflow: hidden;
+        margin-top: 10px;
+      }
+      .camp-bar {
+        height: 100%;
+        border-radius: 3px;
+      }
+
+      /* TOAST */
+      .toast-container {
+        position: fixed;
+        bottom: 22px;
+        right: 22px;
+        z-index: 200;
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+        pointer-events: none;
+      }
+      .toast {
+        background: #1a2233;
+        color: #fff;
+        padding: 10px 15px;
+        border-radius: var(--radius-sm);
+        font-size: 13px;
+        font-weight: 500;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transform: translateY(8px);
+        opacity: 0;
+        transition: all 0.25s;
+        max-width: 310px;
+      }
+      .toast.show {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      /* PIPELINE (dashboard) */
+      .pipeline-section {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+      }
+      .section-header {
+        padding: 14px 18px;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .section-title {
+        font-size: 14px;
+        font-weight: 700;
+      }
+      .pipeline {
+        display: flex;
+        padding: 14px;
+        gap: 10px;
+        overflow-x: auto;
+      }
+      .pipeline-col {
+        flex: 1;
+        min-width: 125px;
+      }
+      .pipeline-col-hd {
+        padding: 9px 11px;
+        border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+      }
+      .pipeline-col-name {
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+      .pipeline-col-count {
+        font-size: 20px;
+        font-weight: 700;
+        margin-top: 2px;
+      }
+      .pipeline-bar {
+        height: 4px;
+        border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+        margin-bottom: 9px;
+      }
+      .p-cards {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+      }
+      .p-card {
+        background: var(--surface2);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        padding: 9px 10px;
+        font-size: 12px;
+        cursor: pointer;
+        transition: box-shadow 0.15s;
+      }
+      .p-card:hover {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      }
+      .p-card-name {
+        font-weight: 600;
+        margin-bottom: 2px;
+      }
+      .p-card-meta {
+        color: var(--text-3);
+        font-size: 11px;
+      }
+      .p-card-tag {
+        display: inline-block;
+        margin-top: 4px;
+        padding: 2px 7px;
+        border-radius: 20px;
+        font-size: 10px;
+        font-weight: 600;
+      }
+      .p-more {
+        text-align: center;
+        color: var(--text-3);
+        font-size: 11px;
+        padding: 5px;
+        cursor: pointer;
+      }
+      .p-more:hover {
+        color: var(--accent);
+      }
+
+      /* AI INSIGHTS PANEL */
+      .insights-section {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+      }
+      .ai-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        background: linear-gradient(135deg, #6366f1, #8b5cf6);
+        color: #fff;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        padding: 3px 9px;
+        border-radius: 20px;
+      }
+      .insights-body {
+        padding: 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 9px;
+      }
+      .ig {
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        overflow: hidden;
+      }
+      .ig-hd {
+        padding: 10px 13px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+        user-select: none;
+      }
+      .ig-left {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+      }
+      .ig-label {
+        font-size: 13px;
+        font-weight: 600;
+      }
+      .ig-count {
+        font-size: 11px;
+        font-weight: 700;
+        padding: 2px 8px;
+        border-radius: 20px;
+      }
+      .ig-list {
+        border-top: 1px solid var(--border);
+      }
+      .ig-list.collapsed {
+        display: none;
+      }
+      .ig-item {
+        padding: 9px 13px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid var(--border);
+      }
+      .ig-item:last-child {
+        border-bottom: none;
+      }
+      .ig-name {
+        font-size: 13px;
+        font-weight: 500;
+      }
+      .ig-reason {
+        font-size: 11px;
+        color: var(--text-3);
+        margin-top: 1px;
+      }
+      .ig-act {
+        padding: 4px 10px;
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--border);
+        background: transparent;
+        font-size: 11px;
+        font-weight: 600;
+        cursor: pointer;
+        font-family: inherit;
+        color: var(--text-2);
+        white-space: nowrap;
+        transition: all 0.15s;
+      }
+      .ig-act:hover {
+        background: var(--accent-soft);
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+
+      /* TASKS */
+      .tasks-section {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+      }
+      .tasks-body {
+        padding: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+      }
+      .task-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 9px;
+        padding: 9px 11px;
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--border);
+        background: var(--surface2);
+        cursor: pointer;
+        transition: border-color 0.15s;
+      }
+      .task-item:hover {
+        border-color: #c0c8d8;
+      }
+      .task-check {
+        width: 16px;
+        height: 16px;
+        border-radius: 4px;
+        border: 1.5px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        margin-top: 1px;
+        transition: all 0.15s;
+      }
+      .task-check.done {
+        background: var(--green);
+        border-color: var(--green);
+      }
+      .task-check svg {
+        display: none;
+        width: 10px;
+        height: 10px;
+        color: #fff;
+      }
+      .task-check.done svg {
+        display: block;
+      }
+      .task-bi {
+        flex: 1;
+      }
+      .task-name {
+        font-size: 13px;
+        font-weight: 500;
+      }
+      .task-name.done {
+        text-decoration: line-through;
+        color: var(--text-3);
+      }
+      .task-meta {
+        font-size: 11px;
+        color: var(--text-3);
+        margin-top: 2px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+      .task-badge {
+        font-size: 10px;
+        font-weight: 600;
+        padding: 2px 7px;
+        border-radius: 20px;
+      }
+      .add-task-btn {
+        width: 100%;
+        padding: 8px;
+        border-radius: var(--radius-sm);
+        border: 1.5px dashed var(--border);
+        background: transparent;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 13px;
+        color: var(--text-3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        transition: all 0.15s;
+      }
+      .add-task-btn:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+
+      /* FILTER BAR */
+      .filter-bar {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .chip {
+        padding: 5px 12px;
+        border-radius: 20px;
+        border: 1px solid var(--border);
+        font-size: 12px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.15s;
+        background: var(--surface);
+        color: var(--text-2);
+        user-select: none;
+      }
+      .chip.active {
+        background: var(--accent-soft);
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+      .chip:hover:not(.active) {
+        border-color: #c0c8d8;
+      }
+
+      /* SPLIT LAYOUT */
+      .split {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+        align-items: start;
+      }
+      .split-3 {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 14px;
+        align-items: start;
+      }
+      .bottom-row {
+        display: grid;
+        grid-template-columns: 1fr 300px;
+        gap: 14px;
+      }
+      .fc {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ═══════════════ SIDEBAR ═══════════════ -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-tag">CRM · Seabreeze</div>
+        <div class="brand-name">Godrej <span>Bayview</span><br />Vashi</div>
+      </div>
+      <nav class="nav">
+        <div class="nav-label">Main</div>
+        <div class="nav-item active" data-page="dashboard">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <rect x="3" y="3" width="7" height="7" rx="1" />
+            <rect x="14" y="3" width="7" height="7" rx="1" />
+            <rect x="3" y="14" width="7" height="7" rx="1" />
+            <rect x="14" y="14" width="7" height="7" rx="1" />
+          </svg>
+          Dashboard
+        </div>
+        <div class="nav-item" data-page="leads">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+          </svg>
+          All Leads
+          <span class="nav-badge" id="leads-badge">8</span>
+        </div>
+        <div class="nav-item" data-page="visits">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+            <polyline points="9 22 9 12 15 12 15 22" />
+          </svg>
+          Site Visits
+          <span class="nav-badge" style="background: var(--amber)">6</span>
+        </div>
+        <div class="nav-item" data-page="bookings">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+            />
+            <polyline points="14 2 14 8 20 8" />
+            <line x1="16" y1="13" x2="8" y2="13" />
+            <line x1="16" y1="17" x2="8" y2="17" />
+          </svg>
+          Bookings
+          <span class="nav-badge" style="background: var(--green)">4</span>
+        </div>
+        <div class="nav-label">Tools</div>
+        <div class="nav-item" data-page="analytics">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <line x1="18" y1="20" x2="18" y2="10" />
+            <line x1="12" y1="20" x2="12" y2="4" />
+            <line x1="6" y1="20" x2="6" y2="14" />
+          </svg>
+          Analytics
+        </div>
+        <div class="nav-item" data-page="followups">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.99 13 19.79 19.79 0 0 1 1.93 4.35 2 2 0 0 1 3.9 2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"
+            />
+          </svg>
+          Follow-ups
+          <span class="nav-badge" style="background: var(--rose)">5</span>
+        </div>
+        <div class="nav-item" data-page="campaigns">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M22 2L11 13" />
+            <path d="M22 2L15 22l-4-9-9-4 20-7z" />
+          </svg>
+          Campaigns
+        </div>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="avatar">KA</div>
+        <div>
+          <div class="avatar-name">Kartik Agarwal</div>
+          <div class="avatar-role">Sales Manager</div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ═══════════════ MAIN ═══════════════ -->
+    <div class="main">
+      <!-- TOP BAR -->
+      <div class="topbar">
+        <div class="topbar-left">
+          <h1 id="topbar-title">Dashboard</h1>
+          <p id="topbar-sub">
+            Seabreeze · Godrej Bayview, Vashi · <span id="topbar-date"></span>
+          </p>
+        </div>
+        <div class="topbar-right" id="topbar-actions">
+          <!-- injected per page -->
+        </div>
+      </div>
+
+      <!-- ══════════ PAGE: DASHBOARD ══════════ -->
+      <div id="page-dashboard" class="page active">
+        <!-- STAT CARDS -->
+        <div class="stats-row cols-4">
+          <div
+            class="stat-card"
+            style="cursor: pointer"
+            onclick="goPage('leads')"
+          >
+            <div class="stat-top">
+              <div class="stat-icon" style="background: var(--accent-soft)">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="var(--accent)"
+                  stroke-width="2"
+                >
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                </svg>
+              </div>
+              <span
+                class="stat-badge"
+                style="background: var(--accent-soft); color: var(--accent)"
+                >+12 this week</span
+              >
+            </div>
+            <div class="stat-value">148</div>
+            <div class="stat-label">Total Leads</div>
+            <div class="stat-sub" style="color: var(--green)">
+              ↑ 18% vs last month
+            </div>
+          </div>
+          <div
+            class="stat-card"
+            style="cursor: pointer"
+            onclick="goPage('leads')"
+          >
+            <div class="stat-top">
+              <div class="stat-icon" style="background: var(--teal-soft)">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="var(--teal)"
+                  stroke-width="2"
+                >
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+              </div>
+              <span
+                class="stat-badge"
+                style="background: var(--teal-soft); color: var(--teal)"
+                >63% rate</span
+              >
+            </div>
+            <div class="stat-value">93</div>
+            <div class="stat-label">Qualified Leads</div>
+            <div class="stat-sub" style="color: var(--green)">
+              ↑ 9% vs last month
+            </div>
+          </div>
+          <div
+            class="stat-card"
+            style="cursor: pointer"
+            onclick="goPage('visits')"
+          >
+            <div class="stat-top">
+              <div class="stat-icon" style="background: var(--amber-soft)">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="var(--amber)"
+                  stroke-width="2"
+                >
+                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                </svg>
+              </div>
+              <span
+                class="stat-badge"
+                style="background: var(--amber-soft); color: var(--amber)"
+                >5 this week</span
+              >
+            </div>
+            <div class="stat-value">31</div>
+            <div class="stat-label">Site Visits</div>
+            <div class="stat-sub" style="color: var(--amber)">→ Stable</div>
+          </div>
+          <div
+            class="stat-card"
+            style="cursor: pointer"
+            onclick="goPage('bookings')"
+          >
+            <div class="stat-top">
+              <div class="stat-icon" style="background: var(--green-soft)">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="var(--green)"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                  />
+                  <polyline points="14 2 14 8 20 8" />
+                </svg>
+              </div>
+              <span
+                class="stat-badge"
+                style="background: var(--green-soft); color: var(--green)"
+                >₹14.3 Cr</span
+              >
+            </div>
+            <div class="stat-value">8</div>
+            <div class="stat-label">Bookings</div>
+            <div class="stat-sub" style="color: var(--green)">
+              ↑ 33% vs last month
+            </div>
+          </div>
+        </div>
+
+        <!-- PIPELINE -->
+        <div class="pipeline-section">
+          <div class="section-header">
+            <div style="font-size: 14px; font-weight: 700">Lead Pipeline</div>
+            <div style="font-size: 12px; color: var(--text-3)">
+              148 leads · 6 stages
+            </div>
+          </div>
+          <div class="pipeline">
+            <div class="pipeline-col">
+              <div class="pipeline-col-hd" style="background: #e8f0ff20">
+                <div class="pipeline-col-name" style="color: var(--accent)">
+                  New Lead
+                </div>
+                <div class="pipeline-col-count" style="color: var(--accent)">
+                  28
+                </div>
+              </div>
+              <div class="pipeline-bar" style="background: var(--accent)"></div>
+              <div class="p-cards">
+                <div class="p-card" onclick="openLeadDetail(0)">
+                  <div class="p-card-name">Amit Sharma</div>
+                  <div class="p-card-meta">3 BHK · ₹5 Cr</div>
+                  <span
+                    class="p-card-tag"
+                    style="background: var(--accent-soft); color: var(--accent)"
+                    >Facebook</span
+                  >
+                </div>
+                <div class="p-card" onclick="openLeadDetail(4)">
+                  <div class="p-card-name">Priya Nair</div>
+                  <div class="p-card-meta">2 BHK · ₹3.3 Cr</div>
+                  <span
+                    class="p-card-tag"
+                    style="background: var(--accent-soft); color: var(--accent)"
+                    >Website</span
+                  >
+                </div>
+                <div class="p-more" onclick="goPage('leads')">+26 more →</div>
+              </div>
+            </div>
+            <div class="pipeline-col">
+              <div class="pipeline-col-hd" style="background: #e0f2f020">
+                <div class="pipeline-col-name" style="color: var(--teal)">
+                  Contacted
+                </div>
+                <div class="pipeline-col-count" style="color: var(--teal)">
+                  34
+                </div>
+              </div>
+              <div class="pipeline-bar" style="background: var(--teal)"></div>
+              <div class="p-cards">
+                <div class="p-card" onclick="openLeadDetail(5)">
+                  <div class="p-card-name">Deepak Verma</div>
+                  <div class="p-card-meta">3 BHK · ₹4.8 Cr</div>
+                  <span
+                    class="p-card-tag"
+                    style="background: var(--teal-soft); color: var(--teal)"
+                    >Referral</span
+                  >
+                </div>
+                <div class="p-card" onclick="openLeadDetail(6)">
+                  <div class="p-card-name">Sunita Joshi</div>
+                  <div class="p-card-meta">2 BHK · ₹3.5 Cr</div>
+                  <span
+                    class="p-card-tag"
+                    style="background: var(--teal-soft); color: var(--teal)"
+                    >Google Ads</span
+                  >
+                </div>
+                <div class="p-more" onclick="goPage('leads')">+32 more →</div>
+              </div>
+            </div>
+            <div class="pipeline-col">
+              <div class="pipeline-col-hd" style="background: #ede9fe20">
+                <div class="pipeline-col-name" style="color: var(--purple)">
+                  Qualified
+                </div>
+                <div class="pipeline-col-count" style="color: var(--purple)">
+                  31
+                </div>
+              </div>
+              <div class="pipeline-bar" style="background: var(--purple)"></div>
+              <div class="p-cards">
+                <div class="p-card" onclick="openLeadDetail(1)">
+                  <div class="p-card-name">Rajeev Kulkarni</div>
+                  <div class="p-card-meta">3 BHK · ₹5 Cr</div>
+                  <span
+                    class="p-card-tag"
+                    style="background: var(--purple-soft); color: var(--purple)"
+                    >Walk-in</span
+                  >
+                </div>
+                <div class="p-card" onclick="openLeadDetail(7)">
+                  <div class="p-card-name">Meera Shah</div>
+                  <div class="p-card-meta">2 BHK · ₹3.2 Cr</div>
+                  <span
+                    class="p-card-tag"
+                    style="background: var(--purple-soft); color: var(--purple)"
+                    >Broker</span
+                  >
+                </div>
+                <div class="p-more" onclick="goPage('leads')">+29 more →</div>
+              </div>
+            </div>
+            <div class="pipeline-col">
+              <div class="pipeline-col-hd" style="background: #fef3c720">
+                <div class="pipeline-col-name" style="color: var(--amber)">
+                  Interested
+                </div>
+                <div class="pipeline-col-count" style="color: var(--amber)">
+                  22
+                </div>
+              </div>
+              <div class="pipeline-bar" style="background: var(--amber)"></div>
+              <div class="p-cards">
+                <div class="p-card" onclick="openLeadDetail(3)">
+                  <div class="p-card-name">Vivek Menon</div>
+                  <div class="p-card-meta">3 BHK · ₹4.75 Cr</div>
+                  <span
+                    class="p-card-tag"
+                    style="background: var(--amber-soft); color: var(--amber)"
+                    >High Intent</span
+                  >
+                </div>
+                <div class="p-card" onclick="openLeadDetail(2)">
+                  <div class="p-card-name">Anita Desai</div>
+                  <div class="p-card-meta">2 BHK · ₹3.4 Cr</div>
+                  <span
+                    class="p-card-tag"
+                    style="background: var(--amber-soft); color: var(--amber)"
+                    >Follow-up</span
+                  >
+                </div>
+                <div class="p-more" onclick="goPage('leads')">+20 more →</div>
+              </div>
+            </div>
+            <div class="pipeline-col">
+              <div class="pipeline-col-hd" style="background: #dcfce720">
+                <div class="pipeline-col-name" style="color: var(--green)">
+                  Site Visit
+                </div>
+                <div class="pipeline-col-count" style="color: var(--green)">
+                  25
+                </div>
+              </div>
+              <div class="pipeline-bar" style="background: var(--green)"></div>
+              <div class="p-cards">
+                <div class="p-card" onclick="goPage('visits')">
+                  <div class="p-card-name">Kiran Patil</div>
+                  <div class="p-card-meta">3 BHK · ₹5 Cr</div>
+                  <span
+                    class="p-card-tag"
+                    style="background: var(--green-soft); color: var(--green)"
+                    >Visited</span
+                  >
+                </div>
+                <div class="p-card" onclick="goPage('visits')">
+                  <div class="p-card-name">Ritu Malhotra</div>
+                  <div class="p-card-meta">2 BHK · ₹3.2 Cr</div>
+                  <span
+                    class="p-card-tag"
+                    style="background: var(--green-soft); color: var(--green)"
+                    >2nd Visit</span
+                  >
+                </div>
+                <div class="p-more" onclick="goPage('visits')">+23 more →</div>
+              </div>
+            </div>
+            <div class="pipeline-col">
+              <div class="pipeline-col-hd" style="background: #ffe4ec20">
+                <div class="pipeline-col-name" style="color: var(--rose)">
+                  Booking
+                </div>
+                <div class="pipeline-col-count" style="color: var(--rose)">
+                  8
+                </div>
+              </div>
+              <div class="pipeline-bar" style="background: var(--rose)"></div>
+              <div class="p-cards">
+                <div class="p-card" onclick="goPage('bookings')">
+                  <div class="p-card-name">Suresh Iyer</div>
+                  <div class="p-card-meta">3 BHK · ₹5 Cr</div>
+                  <span
+                    class="p-card-tag"
+                    style="background: var(--rose-soft); color: var(--rose)"
+                    >Booked ✓</span
+                  >
+                </div>
+                <div class="p-card" onclick="goPage('bookings')">
+                  <div class="p-card-name">Nandita Roy</div>
+                  <div class="p-card-meta">2 BHK · ₹3.2 Cr</div>
+                  <span
+                    class="p-card-tag"
+                    style="background: var(--rose-soft); color: var(--rose)"
+                    >Booked ✓</span
+                  >
+                </div>
+                <div class="p-more" onclick="goPage('bookings')">+6 more →</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI INSIGHTS + TASKS -->
+        <div class="bottom-row">
+          <div class="insights-section">
+            <div class="section-header">
+              <div class="fc">
+                <span style="font-size: 14px; font-weight: 700"
+                  >AI Insights</span
+                ><span class="ai-badge" style="margin-left: 8px"
+                  >✦ Powered by AI</span
+                >
+              </div>
+              <span style="font-size: 12px; color: var(--text-3)"
+                >Updated 2 min ago</span
+              >
+            </div>
+            <div class="insights-body">
+              <div class="ig">
+                <div
+                  class="ig-hd"
+                  style="background: var(--rose-soft)"
+                  onclick="
+                    this.nextElementSibling.classList.toggle('collapsed')
+                  "
+                >
+                  <div class="ig-left">
+                    <span style="font-size: 15px">🔥</span
+                    ><span class="ig-label" style="color: var(--rose)"
+                      >Hot Leads</span
+                    >
+                  </div>
+                  <span
+                    class="ig-count"
+                    style="background: var(--rose); color: #fff"
+                    >6</span
+                  >
+                </div>
+                <div class="ig-list">
+                  <div class="ig-item">
+                    <div>
+                      <div class="ig-name">Vivek Menon</div>
+                      <div class="ig-reason">
+                        Visited site, price negotiation started
+                      </div>
+                    </div>
+                    <button
+                      class="ig-act"
+                      onclick="toast('📞 Calling Vivek Menon…')"
+                    >
+                      Call Now
+                    </button>
+                  </div>
+                  <div class="ig-item">
+                    <div>
+                      <div class="ig-name">Rajeev Kulkarni</div>
+                      <div class="ig-reason">
+                        Revisited brochure, 3 BHK fixed
+                      </div>
+                    </div>
+                    <button
+                      class="ig-act"
+                      onclick="toast('📞 Calling Rajeev Kulkarni…')"
+                    >
+                      Call Now
+                    </button>
+                  </div>
+                  <div class="ig-item">
+                    <div>
+                      <div class="ig-name">Kiran Patil</div>
+                      <div class="ig-reason">
+                        Requested loan details, high urgency
+                      </div>
+                    </div>
+                    <button
+                      class="ig-act"
+                      onclick="toast('📞 Calling Kiran Patil…')"
+                    >
+                      Call Now
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="ig">
+                <div
+                  class="ig-hd"
+                  style="background: var(--amber-soft)"
+                  onclick="
+                    this.nextElementSibling.classList.toggle('collapsed')
+                  "
+                >
+                  <div class="ig-left">
+                    <span style="font-size: 15px">⏰</span
+                    ><span class="ig-label" style="color: var(--amber)"
+                      >Needs Follow-up</span
+                    >
+                  </div>
+                  <span
+                    class="ig-count"
+                    style="background: var(--amber); color: #fff"
+                    >14</span
+                  >
+                </div>
+                <div class="ig-list">
+                  <div class="ig-item">
+                    <div>
+                      <div class="ig-name">Priya Nair</div>
+                      <div class="ig-reason">No response since 3 days</div>
+                    </div>
+                    <button class="ig-act" onclick="goPage('followups')">
+                      Schedule
+                    </button>
+                  </div>
+                  <div class="ig-item">
+                    <div>
+                      <div class="ig-name">Sunita Joshi</div>
+                      <div class="ig-reason">
+                        Requested floor plan, awaiting
+                      </div>
+                    </div>
+                    <button class="ig-act" onclick="goPage('followups')">
+                      Schedule
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="ig">
+                <div
+                  class="ig-hd"
+                  style="background: var(--surface2)"
+                  onclick="
+                    this.nextElementSibling.classList.toggle('collapsed')
+                  "
+                >
+                  <div class="ig-left">
+                    <span style="font-size: 15px">🧊</span
+                    ><span class="ig-label" style="color: var(--text-2)"
+                      >Cold Leads</span
+                    >
+                  </div>
+                  <span
+                    class="ig-count"
+                    style="background: var(--border); color: var(--text-2)"
+                    >21</span
+                  >
+                </div>
+                <div class="ig-list">
+                  <div class="ig-item">
+                    <div>
+                      <div class="ig-name">Deepak Verma</div>
+                      <div class="ig-reason">No engagement for 8+ days</div>
+                    </div>
+                    <button
+                      class="ig-act"
+                      onclick="toast('💬 SMS sent to Deepak Verma')"
+                    >
+                      Re-engage
+                    </button>
+                  </div>
+                  <div class="ig-item">
+                    <div>
+                      <div class="ig-name">Anita Desai</div>
+                      <div class="ig-reason">Budget mismatch flagged</div>
+                    </div>
+                    <button
+                      class="ig-act"
+                      onclick="toast('💬 SMS sent to Anita Desai')"
+                    >
+                      Re-engage
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tasks-section">
+            <div class="section-header">
+              <span style="font-size: 14px; font-weight: 700"
+                >Today's Tasks</span
+              ><span
+                id="task-count"
+                style="font-size: 12px; color: var(--text-3)"
+              ></span>
+            </div>
+            <div class="tasks-body" id="tasks-body"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════ PAGE: ALL LEADS ══════════ -->
+      <div id="page-leads" class="page">
+        <div class="page-header">
+          <div>
+            <div class="page-title">All Leads</div>
+            <div class="page-sub" id="leads-sub">Loading…</div>
+          </div>
+          <div class="fc" style="gap: 8px">
+            <div class="filter-bar">
+              <div class="chip active" data-group="lead-status" data-val="all">
+                All
+              </div>
+              <div class="chip" data-group="lead-status" data-val="Hot">
+                🔥 Hot
+              </div>
+              <div class="chip" data-group="lead-status" data-val="Warm">
+                🌤 Warm
+              </div>
+              <div class="chip" data-group="lead-status" data-val="New">
+                🆕 New
+              </div>
+              <div class="chip" data-group="lead-status" data-val="Cold">
+                🧊 Cold
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="data-card">
+          <div class="data-card-header">
+            <div class="data-card-title">Lead List</div>
+            <div class="toolbar">
+              <div class="search-box">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <circle cx="11" cy="11" r="8" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" /></svg
+                ><input
+                  id="leads-search"
+                  placeholder="Search name, phone…"
+                  oninput="renderLeadsTable()"
+                />
+              </div>
+              <select
+                class="filter-sel"
+                id="leads-bhk-filter"
+                onchange="renderLeadsTable()"
+              >
+                <option value="all">All BHK</option>
+                <option value="2 BHK">2 BHK</option>
+                <option value="3 BHK">3 BHK</option>
+              </select>
+              <select
+                class="filter-sel"
+                id="leads-src-filter"
+                onchange="renderLeadsTable()"
+              >
+                <option value="all">All Sources</option>
+                <option>Facebook</option>
+                <option>Google Ads</option>
+                <option>Referral</option>
+                <option>Walk-in</option>
+                <option>Broker</option>
+                <option>Website</option>
+              </select>
+            </div>
+          </div>
+          <div class="tbl-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Phone</th>
+                  <th>Budget</th>
+                  <th>BHK</th>
+                  <th>Source</th>
+                  <th>Status</th>
+                  <th>Stage</th>
+                  <th>Last Contact</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="leads-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════ PAGE: SITE VISITS ══════════ -->
+      <div id="page-visits" class="page">
+        <div class="page-header">
+          <div>
+            <div class="page-title">Site Visits</div>
+            <div class="page-sub">
+              Track all scheduled and completed site visits
+            </div>
+          </div>
+          <button class="btn btn-primary" onclick="openModal('modal-visit')">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <line x1="12" y1="5" x2="12" y2="19" />
+              <line x1="5" y1="12" x2="19" y2="12" />
+            </svg>
+            Schedule Visit
+          </button>
+        </div>
+        <div class="stats-row cols-3">
+          <div class="stat-card">
+            <div class="stat-top">
+              <div class="stat-icon" style="background: var(--amber-soft)">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="var(--amber)"
+                  stroke-width="2"
+                >
+                  <rect x="3" y="4" width="18" height="18" rx="2" />
+                  <line x1="16" y1="2" x2="16" y2="6" />
+                  <line x1="8" y1="2" x2="8" y2="6" />
+                  <line x1="3" y1="10" x2="21" y2="10" />
+                </svg>
+              </div>
+            </div>
+            <div class="stat-value">6</div>
+            <div class="stat-label">Scheduled</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-top">
+              <div class="stat-icon" style="background: var(--green-soft)">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="var(--green)"
+                  stroke-width="2"
+                >
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+              </div>
+            </div>
+            <div class="stat-value">25</div>
+            <div class="stat-label">Completed</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-top">
+              <div class="stat-icon" style="background: var(--rose-soft)">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="var(--rose)"
+                  stroke-width="2"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="4.93" y1="4.93" x2="19.07" y2="19.07" />
+                </svg>
+              </div>
+            </div>
+            <div class="stat-value">4</div>
+            <div class="stat-label">Cancelled / No-show</div>
+          </div>
+        </div>
+        <div class="data-card">
+          <div class="data-card-header">
+            <div class="data-card-title">Visit Log</div>
+            <div class="toolbar">
+              <div class="search-box">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <circle cx="11" cy="11" r="8" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" /></svg
+                ><input
+                  id="visits-search"
+                  placeholder="Search visitor…"
+                  oninput="renderVisitsTable()"
+                />
+              </div>
+              <select
+                class="filter-sel"
+                id="visits-status-filter"
+                onchange="renderVisitsTable()"
+              >
+                <option value="all">All Status</option>
+                <option>Scheduled</option>
+                <option>Completed</option>
+                <option>Cancelled</option>
+                <option>No-show</option>
+              </select>
+            </div>
+          </div>
+          <div class="tbl-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Visitor</th>
+                  <th>Phone</th>
+                  <th>BHK</th>
+                  <th>Visit Date</th>
+                  <th>Time Slot</th>
+                  <th>Agent</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="visits-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════ PAGE: BOOKINGS ══════════ -->
+      <div id="page-bookings" class="page">
+        <div class="page-header">
+          <div>
+            <div class="page-title">Bookings</div>
+            <div class="page-sub">
+              Manage all confirmed bookings and payment status
+            </div>
+          </div>
+          <button class="btn btn-primary" onclick="openModal('modal-booking')">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <line x1="12" y1="5" x2="12" y2="19" />
+              <line x1="5" y1="12" x2="19" y2="12" />
+            </svg>
+            Add Booking
+          </button>
+        </div>
+        <div class="stats-row cols-3">
+          <div class="stat-card">
+            <div class="stat-top">
+              <div class="stat-icon" style="background: var(--green-soft)">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="var(--green)"
+                  stroke-width="2"
+                >
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+              </div>
+              <span
+                class="stat-badge"
+                style="background: var(--green-soft); color: var(--green)"
+                >↑ 33%</span
+              >
+            </div>
+            <div class="stat-value">8</div>
+            <div class="stat-label">Total Bookings</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-top">
+              <div class="stat-icon" style="background: var(--accent-soft)">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="var(--accent)"
+                  stroke-width="2"
+                >
+                  <line x1="12" y1="1" x2="12" y2="23" />
+                  <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                </svg>
+              </div>
+            </div>
+            <div class="stat-value">₹14.3 Cr</div>
+            <div class="stat-label">Total Value</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-top">
+              <div class="stat-icon" style="background: var(--amber-soft)">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="var(--amber)"
+                  stroke-width="2"
+                >
+                  <rect x="3" y="4" width="18" height="18" rx="2" />
+                  <line x1="16" y1="2" x2="16" y2="6" />
+                  <line x1="8" y1="2" x2="8" y2="6" />
+                  <line x1="3" y1="10" x2="21" y2="10" />
+                </svg>
+              </div>
+            </div>
+            <div class="stat-value">3</div>
+            <div class="stat-label">Pending Agreement</div>
+          </div>
+        </div>
+        <div class="data-card">
+          <div class="data-card-header">
+            <div class="data-card-title">Booking Records</div>
+            <div class="toolbar">
+              <div class="search-box">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <circle cx="11" cy="11" r="8" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" /></svg
+                ><input
+                  id="bookings-search"
+                  placeholder="Search buyer…"
+                  oninput="renderBookingsTable()"
+                />
+              </div>
+              <select
+                class="filter-sel"
+                id="bookings-status-filter"
+                onchange="renderBookingsTable()"
+              >
+                <option value="all">All Status</option>
+                <option>Agreement Signed</option>
+                <option>Agreement Pending</option>
+                <option>Token Paid</option>
+                <option>Cancelled</option>
+              </select>
+            </div>
+          </div>
+          <div class="tbl-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Buyer</th>
+                  <th>Phone</th>
+                  <th>Unit</th>
+                  <th>Floor</th>
+                  <th>Amount</th>
+                  <th>Booking Date</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="bookings-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════ PAGE: ANALYTICS ══════════ -->
+      <div id="page-analytics" class="page">
+        <div class="page-header">
+          <div>
+            <div class="page-title">Analytics</div>
+            <div class="page-sub">
+              Lead conversion, source performance & revenue
+            </div>
+          </div>
+        </div>
+        <div class="stats-row cols-4">
+          <div class="stat-card">
+            <div class="stat-top">
+              <div
+                class="stat-icon"
+                style="background: var(--accent-soft)"
+              ></div>
+            </div>
+            <div class="stat-value">148</div>
+            <div class="stat-label">Total Leads</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-top">
+              <div class="stat-icon" style="background: var(--teal-soft)"></div>
+            </div>
+            <div class="stat-value">21%</div>
+            <div class="stat-label">Visit Conversion</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-top">
+              <div
+                class="stat-icon"
+                style="background: var(--green-soft)"
+              ></div>
+            </div>
+            <div class="stat-value">5.4%</div>
+            <div class="stat-label">Booking Rate</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-top">
+              <div
+                class="stat-icon"
+                style="background: var(--amber-soft)"
+              ></div>
+            </div>
+            <div class="stat-value">₹1.78 Cr</div>
+            <div class="stat-label">Avg. Deal Value</div>
+          </div>
+        </div>
+        <div class="an-grid">
+          <div class="an-card">
+            <div class="an-title">Lead Source Breakdown</div>
+            <div class="bar-row">
+              <div class="bar-label">Facebook</div>
+              <div class="bar-track">
+                <div
+                  class="bar-fill"
+                  style="width: 58%; background: var(--accent)"
+                ></div>
+              </div>
+              <div class="bar-val">58</div>
+            </div>
+            <div class="bar-row">
+              <div class="bar-label">Google Ads</div>
+              <div class="bar-track">
+                <div
+                  class="bar-fill"
+                  style="width: 32%; background: var(--teal)"
+                ></div>
+              </div>
+              <div class="bar-val">32</div>
+            </div>
+            <div class="bar-row">
+              <div class="bar-label">Referral</div>
+              <div class="bar-track">
+                <div
+                  class="bar-fill"
+                  style="width: 24%; background: var(--green)"
+                ></div>
+              </div>
+              <div class="bar-val">24</div>
+            </div>
+            <div class="bar-row">
+              <div class="bar-label">Walk-in</div>
+              <div class="bar-track">
+                <div
+                  class="bar-fill"
+                  style="width: 18%; background: var(--amber)"
+                ></div>
+              </div>
+              <div class="bar-val">18</div>
+            </div>
+            <div class="bar-row">
+              <div class="bar-label">Broker</div>
+              <div class="bar-track">
+                <div
+                  class="bar-fill"
+                  style="width: 10%; background: var(--purple)"
+                ></div>
+              </div>
+              <div class="bar-val">10</div>
+            </div>
+            <div class="bar-row">
+              <div class="bar-label">Website</div>
+              <div class="bar-track">
+                <div
+                  class="bar-fill"
+                  style="width: 6%; background: var(--rose)"
+                ></div>
+              </div>
+              <div class="bar-val">6</div>
+            </div>
+          </div>
+          <div class="an-card">
+            <div class="an-title">BHK Preference Split</div>
+            <div class="donut-wrap">
+              <svg viewBox="0 0 100 100" width="110" height="110">
+                <circle
+                  cx="50"
+                  cy="50"
+                  r="40"
+                  fill="none"
+                  stroke="#e8ecf0"
+                  stroke-width="18"
+                />
+                <circle
+                  cx="50"
+                  cy="50"
+                  r="40"
+                  fill="none"
+                  stroke="var(--accent)"
+                  stroke-width="18"
+                  stroke-dasharray="150.8 100.5"
+                  stroke-dashoffset="-25.1"
+                  transform="rotate(-90 50 50)"
+                />
+                <circle
+                  cx="50"
+                  cy="50"
+                  r="40"
+                  fill="none"
+                  stroke="var(--teal)"
+                  stroke-width="18"
+                  stroke-dasharray="100.5 150.8"
+                  stroke-dashoffset="-175.9"
+                  transform="rotate(-90 50 50)"
+                />
+                <text
+                  x="50"
+                  y="55"
+                  text-anchor="middle"
+                  font-size="13"
+                  font-weight="700"
+                  fill="var(--text)"
+                >
+                  148
+                </text>
+              </svg>
+              <div class="donut-legend">
+                <div class="donut-item">
+                  <div
+                    class="donut-dot"
+                    style="background: var(--accent)"
+                  ></div>
+                  <div>
+                    <div style="font-weight: 600">3 BHK</div>
+                    <div style="color: var(--text-3); font-size: 11px">
+                      60% · 89 leads
+                    </div>
+                  </div>
+                </div>
+                <div class="donut-item">
+                  <div class="donut-dot" style="background: var(--teal)"></div>
+                  <div>
+                    <div style="font-weight: 600">2 BHK</div>
+                    <div style="color: var(--text-3); font-size: 11px">
+                      40% · 59 leads
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="an-card">
+            <div class="an-title">Monthly Lead Trend</div>
+            <svg viewBox="0 0 300 120" width="100%" style="overflow: visible">
+              <polyline
+                points="0,90 50,75 100,80 150,60 200,45 250,30 300,20"
+                fill="none"
+                stroke="var(--accent)"
+                stroke-width="2.5"
+                stroke-linejoin="round"
+              />
+              <polyline
+                points="0,90 50,75 100,80 150,60 200,45 250,30 300,20 300,120 0,120"
+                fill="var(--accent)"
+                fill-opacity=".08"
+              />
+              <text x="0" y="115" font-size="9" fill="var(--text-3)">Oct</text>
+              <text x="50" y="115" font-size="9" fill="var(--text-3)">Nov</text>
+              <text x="100" y="115" font-size="9" fill="var(--text-3)">
+                Dec
+              </text>
+              <text x="150" y="115" font-size="9" fill="var(--text-3)">
+                Jan
+              </text>
+              <text x="200" y="115" font-size="9" fill="var(--text-3)">
+                Feb
+              </text>
+              <text x="250" y="115" font-size="9" fill="var(--text-3)">
+                Mar
+              </text>
+            </svg>
+          </div>
+          <div class="an-card">
+            <div class="an-title">Conversion Funnel</div>
+            <div style="display: flex; flex-direction: column; gap: 6px">
+              <div>
+                <div
+                  style="
+                    display: flex;
+                    justify-content: space-between;
+                    font-size: 12px;
+                    margin-bottom: 3px;
+                  "
+                >
+                  <span>Leads</span><span style="font-weight: 600">148</span>
+                </div>
+                <div class="bar-track" style="height: 10px">
+                  <div
+                    class="bar-fill"
+                    style="width: 100%; background: var(--accent)"
+                  ></div>
+                </div>
+              </div>
+              <div>
+                <div
+                  style="
+                    display: flex;
+                    justify-content: space-between;
+                    font-size: 12px;
+                    margin-bottom: 3px;
+                  "
+                >
+                  <span>Contacted</span
+                  ><span style="font-weight: 600">118</span>
+                </div>
+                <div class="bar-track" style="height: 10px">
+                  <div
+                    class="bar-fill"
+                    style="width: 80%; background: var(--teal)"
+                  ></div>
+                </div>
+              </div>
+              <div>
+                <div
+                  style="
+                    display: flex;
+                    justify-content: space-between;
+                    font-size: 12px;
+                    margin-bottom: 3px;
+                  "
+                >
+                  <span>Qualified</span><span style="font-weight: 600">93</span>
+                </div>
+                <div class="bar-track" style="height: 10px">
+                  <div
+                    class="bar-fill"
+                    style="width: 63%; background: var(--purple)"
+                  ></div>
+                </div>
+              </div>
+              <div>
+                <div
+                  style="
+                    display: flex;
+                    justify-content: space-between;
+                    font-size: 12px;
+                    margin-bottom: 3px;
+                  "
+                >
+                  <span>Site Visit</span
+                  ><span style="font-weight: 600">31</span>
+                </div>
+                <div class="bar-track" style="height: 10px">
+                  <div
+                    class="bar-fill"
+                    style="width: 21%; background: var(--amber)"
+                  ></div>
+                </div>
+              </div>
+              <div>
+                <div
+                  style="
+                    display: flex;
+                    justify-content: space-between;
+                    font-size: 12px;
+                    margin-bottom: 3px;
+                  "
+                >
+                  <span>Booked</span><span style="font-weight: 600">8</span>
+                </div>
+                <div class="bar-track" style="height: 10px">
+                  <div
+                    class="bar-fill"
+                    style="width: 5%; background: var(--green)"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════ PAGE: FOLLOW-UPS ══════════ -->
+      <div id="page-followups" class="page">
+        <div class="page-header">
+          <div>
+            <div class="page-title">Follow-ups</div>
+            <div class="page-sub">
+              Leads requiring immediate attention today
+            </div>
+          </div>
+          <button class="btn btn-primary" onclick="openModal('modal-followup')">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <line x1="12" y1="5" x2="12" y2="19" />
+              <line x1="5" y1="12" x2="19" y2="12" />
+            </svg>
+            Add Follow-up
+          </button>
+        </div>
+        <div class="stats-row cols-3">
+          <div class="stat-card">
+            <div class="stat-value" style="color: var(--rose)">5</div>
+            <div class="stat-label">Urgent Today</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" style="color: var(--amber)">9</div>
+            <div class="stat-label">Scheduled This Week</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" style="color: var(--green)">12</div>
+            <div class="stat-label">Completed This Month</div>
+          </div>
+        </div>
+        <div class="data-card">
+          <div class="data-card-header">
+            <div class="data-card-title">Pending Follow-ups</div>
+            <div class="toolbar">
+              <select
+                class="filter-sel"
+                id="fu-priority-filter"
+                onchange="renderFollowups()"
+              >
+                <option value="all">All Priority</option>
+                <option>Urgent</option>
+                <option>High</option>
+                <option>Medium</option>
+                <option>Low</option>
+              </select>
+            </div>
+          </div>
+          <div
+            style="
+              padding: 12px;
+              display: flex;
+              flex-direction: column;
+              gap: 8px;
+            "
+            id="fu-list"
+          ></div>
+        </div>
+      </div>
+
+      <!-- ══════════ PAGE: CAMPAIGNS ══════════ -->
+      <div id="page-campaigns" class="page">
+        <div class="page-header">
+          <div>
+            <div class="page-title">Campaigns</div>
+            <div class="page-sub">WhatsApp, Email & SMS outreach campaigns</div>
+          </div>
+          <button class="btn btn-primary" onclick="openModal('modal-campaign')">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <line x1="12" y1="5" x2="12" y2="19" />
+              <line x1="5" y1="12" x2="19" y2="12" />
+            </svg>
+            New Campaign
+          </button>
+        </div>
+        <div class="stats-row cols-3">
+          <div class="stat-card">
+            <div class="stat-value">4</div>
+            <div class="stat-label">Active Campaigns</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">1,240</div>
+            <div class="stat-label">Messages Sent</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">38%</div>
+            <div class="stat-label">Avg Open Rate</div>
+          </div>
+        </div>
+        <div class="camp-grid" id="camp-grid"></div>
+      </div>
+    </div>
+    <!-- /main -->
+
+    <!-- ═══════════════ MODALS ═══════════════ -->
+
+    <!-- ADD LEAD -->
+    <div class="modal-overlay" id="modal-lead">
+      <div class="modal">
+        <div class="modal-hd">
+          <div class="modal-title">Add New Lead</div>
+          <button class="modal-close" onclick="closeModal('modal-lead')">
+            ×
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-grid">
+            <div class="fg">
+              <label class="flabel">Full Name *</label
+              ><input
+                class="finput"
+                id="fl-name"
+                placeholder="e.g. Rahul Mehta"
+              />
+            </div>
+            <div class="fg">
+              <label class="flabel">Phone *</label
+              ><input
+                class="finput"
+                id="fl-phone"
+                placeholder="+91 98XXX XXXXX"
+              />
+            </div>
+          </div>
+          <div class="form-grid">
+            <div class="fg">
+              <label class="flabel">Email</label
+              ><input
+                class="finput"
+                id="fl-email"
+                placeholder="email@example.com"
+              />
+            </div>
+            <div class="fg">
+              <label class="flabel">BHK Preference</label
+              ><select class="finput" id="fl-bhk">
+                <option value="2 BHK">2 BHK</option>
+                <option value="3 BHK">3 BHK</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-grid">
+            <div class="fg">
+              <label class="flabel">Budget</label
+              ><select class="finput" id="fl-budget">
+                <option value="₹3.2 Cr|3.2">₹3.2 Cr</option>
+                <option value="₹3.5 Cr|3.5">₹3.5 Cr</option>
+                <option value="₹4 Cr|4">₹4 Cr</option>
+                <option value="₹4.75 Cr|4.75">₹4.75 Cr</option>
+                <option value="₹5 Cr|5">₹5 Cr</option>
+              </select>
+            </div>
+            <div class="fg">
+              <label class="flabel">Lead Source</label
+              ><select class="finput" id="fl-source">
+                <option>Facebook</option>
+                <option>Google Ads</option>
+                <option>Referral</option>
+                <option>Walk-in</option>
+                <option>Broker</option>
+                <option>Website</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-grid">
+            <div class="fg">
+              <label class="flabel">Status</label
+              ><select class="finput" id="fl-status">
+                <option value="New">New</option>
+                <option value="Warm">Warm</option>
+                <option value="Hot">Hot</option>
+              </select>
+            </div>
+            <div class="fg">
+              <label class="flabel">Stage</label
+              ><select class="finput" id="fl-stage">
+                <option>New Lead</option>
+                <option>Contacted</option>
+                <option>Qualified</option>
+                <option>Interested</option>
+                <option>Site Visit</option>
+                <option>Booking</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-grid full">
+            <div class="fg">
+              <label class="flabel">Notes</label
+              ><input
+                class="finput"
+                id="fl-notes"
+                placeholder="Any additional notes…"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="modal-ft">
+          <button class="btn btn-ghost" onclick="closeModal('modal-lead')">
+            Cancel</button
+          ><button class="btn btn-primary" onclick="saveLead()">
+            Save Lead
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- LEAD DETAIL -->
+    <div class="modal-overlay" id="modal-lead-detail">
+      <div class="modal">
+        <div class="modal-hd">
+          <div class="modal-title" id="mld-name">Lead Detail</div>
+          <button class="modal-close" onclick="closeModal('modal-lead-detail')">
+            ×
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="detail-grid" id="mld-grid"></div>
+          <div
+            style="
+              font-size: 12px;
+              font-weight: 700;
+              text-transform: uppercase;
+              letter-spacing: 0.06em;
+              color: var(--text-3);
+              margin-bottom: 8px;
+            "
+          >
+            Activity Timeline
+          </div>
+          <div class="timeline" id="mld-timeline"></div>
+          <div style="display: flex; gap: 8px; margin-top: 18px">
+            <button
+              class="btn btn-primary"
+              style="flex: 1; justify-content: center"
+              id="mld-call-btn"
+            >
+              📞 Call
+            </button>
+            <button
+              class="btn btn-ghost"
+              style="flex: 1; justify-content: center"
+              id="mld-visit-btn"
+            >
+              🏠 Schedule Visit
+            </button>
+            <button
+              class="btn btn-ghost"
+              style="flex: 1; justify-content: center"
+              id="mld-wa-btn"
+            >
+              💬 WhatsApp
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCHEDULE VISIT -->
+    <div class="modal-overlay" id="modal-visit">
+      <div class="modal" style="width: 420px">
+        <div class="modal-hd">
+          <div class="modal-title">Schedule Site Visit</div>
+          <button class="modal-close" onclick="closeModal('modal-visit')">
+            ×
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-grid">
+            <div class="fg">
+              <label class="flabel">Visitor Name *</label
+              ><input
+                class="finput"
+                id="fv-name"
+                placeholder="e.g. Kiran Patil"
+              />
+            </div>
+            <div class="fg">
+              <label class="flabel">Phone *</label
+              ><input class="finput" id="fv-phone" placeholder="+91…" />
+            </div>
+          </div>
+          <div class="form-grid">
+            <div class="fg">
+              <label class="flabel">BHK Interest</label
+              ><select class="finput" id="fv-bhk">
+                <option>2 BHK</option>
+                <option>3 BHK</option>
+              </select>
+            </div>
+            <div class="fg">
+              <label class="flabel">Visit Date *</label
+              ><input class="finput" id="fv-date" type="date" />
+            </div>
+          </div>
+          <div class="form-grid">
+            <div class="fg">
+              <label class="flabel">Time Slot</label
+              ><select class="finput" id="fv-time">
+                <option>10:00 AM</option>
+                <option>11:00 AM</option>
+                <option>12:00 PM</option>
+                <option>2:00 PM</option>
+                <option>3:00 PM</option>
+                <option>4:00 PM</option>
+              </select>
+            </div>
+            <div class="fg">
+              <label class="flabel">Assigned Agent</label
+              ><select class="finput" id="fv-agent">
+                <option>Rohan Agarwal</option>
+                <option>Priya Sharma</option>
+                <option>Sanjay Mehta</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-ft">
+          <button class="btn btn-ghost" onclick="closeModal('modal-visit')">
+            Cancel</button
+          ><button class="btn btn-primary" onclick="saveVisit()">
+            Schedule Visit
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- VISIT DETAIL -->
+    <div class="modal-overlay" id="modal-visit-detail">
+      <div class="modal" style="width: 420px">
+        <div class="modal-hd">
+          <div class="modal-title" id="mvd-title">Visit Detail</div>
+          <button
+            class="modal-close"
+            onclick="closeModal('modal-visit-detail')"
+          >
+            ×
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="detail-grid" id="mvd-grid"></div>
+          <div style="display: flex; gap: 8px; margin-top: 8px">
+            <button
+              class="btn btn-success"
+              style="flex: 1; justify-content: center"
+              id="mvd-complete-btn"
+            >
+              ✅ Mark Completed
+            </button>
+            <button
+              class="btn btn-danger"
+              style="flex: 1; justify-content: center"
+              id="mvd-cancel-btn"
+            >
+              ✖ Cancel Visit
+            </button>
+            <button
+              class="btn btn-ghost"
+              style="flex: 1; justify-content: center"
+              id="mvd-call-btn"
+            >
+              📞 Call
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADD BOOKING -->
+    <div class="modal-overlay" id="modal-booking">
+      <div class="modal" style="width: 440px">
+        <div class="modal-hd">
+          <div class="modal-title">Add Booking</div>
+          <button class="modal-close" onclick="closeModal('modal-booking')">
+            ×
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-grid">
+            <div class="fg">
+              <label class="flabel">Buyer Name *</label
+              ><input
+                class="finput"
+                id="fb-name"
+                placeholder="e.g. Suresh Iyer"
+              />
+            </div>
+            <div class="fg">
+              <label class="flabel">Phone *</label
+              ><input class="finput" id="fb-phone" placeholder="+91…" />
+            </div>
+          </div>
+          <div class="form-grid">
+            <div class="fg">
+              <label class="flabel">Unit Type</label
+              ><select class="finput" id="fb-unit">
+                <option value="A-1204 | 3 BHK">A-1204 | 3 BHK</option>
+                <option value="B-0803 | 2 BHK">B-0803 | 2 BHK</option>
+                <option value="C-1506 | 3 BHK">C-1506 | 3 BHK</option>
+                <option value="A-0701 | 2 BHK">A-0701 | 2 BHK</option>
+              </select>
+            </div>
+            <div class="fg">
+              <label class="flabel">Floor</label
+              ><input class="finput" id="fb-floor" placeholder="e.g. 12" />
+            </div>
+          </div>
+          <div class="form-grid">
+            <div class="fg">
+              <label class="flabel">Amount</label
+              ><select class="finput" id="fb-amount">
+                <option>₹3.20 Cr</option>
+                <option>₹4.75 Cr</option>
+                <option>₹5.00 Cr</option>
+                <option>₹3.50 Cr</option>
+              </select>
+            </div>
+            <div class="fg">
+              <label class="flabel">Booking Date</label
+              ><input class="finput" id="fb-date" type="date" />
+            </div>
+          </div>
+          <div class="form-grid full">
+            <div class="fg">
+              <label class="flabel">Status</label
+              ><select class="finput" id="fb-status">
+                <option>Token Paid</option>
+                <option>Agreement Pending</option>
+                <option>Agreement Signed</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-ft">
+          <button class="btn btn-ghost" onclick="closeModal('modal-booking')">
+            Cancel</button
+          ><button class="btn btn-primary" onclick="saveBooking()">
+            Save Booking
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOOKING DETAIL -->
+    <div class="modal-overlay" id="modal-booking-detail">
+      <div class="modal" style="width: 440px">
+        <div class="modal-hd">
+          <div class="modal-title" id="mbd-title">Booking Detail</div>
+          <button
+            class="modal-close"
+            onclick="closeModal('modal-booking-detail')"
+          >
+            ×
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="detail-grid" id="mbd-grid"></div>
+          <div style="display: flex; gap: 8px; margin-top: 8px">
+            <button
+              class="btn btn-success"
+              style="flex: 1; justify-content: center"
+              id="mbd-sign-btn"
+            >
+              📝 Mark Agreement Signed
+            </button>
+            <button
+              class="btn btn-ghost"
+              style="flex: 1; justify-content: center"
+              id="mbd-call-btn"
+            >
+              📞 Call Buyer
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADD FOLLOW-UP -->
+    <div class="modal-overlay" id="modal-followup">
+      <div class="modal" style="width: 400px">
+        <div class="modal-hd">
+          <div class="modal-title">Add Follow-up</div>
+          <button class="modal-close" onclick="closeModal('modal-followup')">
+            ×
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-grid full">
+            <div class="fg">
+              <label class="flabel">Lead Name *</label
+              ><input
+                class="finput"
+                id="ffu-name"
+                placeholder="e.g. Priya Nair"
+              />
+            </div>
+          </div>
+          <div class="form-grid">
+            <div class="fg">
+              <label class="flabel">Phone</label
+              ><input class="finput" id="ffu-phone" placeholder="+91…" />
+            </div>
+            <div class="fg">
+              <label class="flabel">Priority</label
+              ><select class="finput" id="ffu-priority">
+                <option>Urgent</option>
+                <option>High</option>
+                <option>Medium</option>
+                <option>Low</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-grid">
+            <div class="fg">
+              <label class="flabel">Follow-up Type</label
+              ><select class="finput" id="ffu-type">
+                <option>Call</option>
+                <option>WhatsApp</option>
+                <option>Email</option>
+                <option>Site Visit</option>
+              </select>
+            </div>
+            <div class="fg">
+              <label class="flabel">Due Date</label
+              ><input class="finput" id="ffu-date" type="date" />
+            </div>
+          </div>
+          <div class="form-grid full">
+            <div class="fg">
+              <label class="flabel">Notes</label
+              ><input
+                class="finput"
+                id="ffu-notes"
+                placeholder="Reason or action needed…"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="modal-ft">
+          <button class="btn btn-ghost" onclick="closeModal('modal-followup')">
+            Cancel</button
+          ><button class="btn btn-primary" onclick="saveFollowup()">
+            Save Follow-up
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- NEW CAMPAIGN -->
+    <div class="modal-overlay" id="modal-campaign">
+      <div class="modal" style="width: 420px">
+        <div class="modal-hd">
+          <div class="modal-title">New Campaign</div>
+          <button class="modal-close" onclick="closeModal('modal-campaign')">
+            ×
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-grid full">
+            <div class="fg">
+              <label class="flabel">Campaign Name *</label
+              ><input
+                class="finput"
+                id="fc-name"
+                placeholder="e.g. March Offer Blast"
+              />
+            </div>
+          </div>
+          <div class="form-grid">
+            <div class="fg">
+              <label class="flabel">Channel</label
+              ><select class="finput" id="fc-channel">
+                <option>WhatsApp</option>
+                <option>Email</option>
+                <option>SMS</option>
+              </select>
+            </div>
+            <div class="fg">
+              <label class="flabel">Target Audience</label
+              ><select class="finput" id="fc-audience">
+                <option>All Leads</option>
+                <option>Hot Leads</option>
+                <option>Cold Leads</option>
+                <option>3 BHK Interest</option>
+                <option>2 BHK Interest</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-grid full">
+            <div class="fg">
+              <label class="flabel">Message</label
+              ><textarea
+                class="finput"
+                id="fc-msg"
+                rows="3"
+                placeholder="Campaign message…"
+                style="resize: vertical"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="modal-ft">
+          <button class="btn btn-ghost" onclick="closeModal('modal-campaign')">
+            Cancel</button
+          ><button class="btn btn-primary" onclick="saveCampaign()">
+            Launch Campaign
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADD TASK -->
+    <div class="modal-overlay" id="modal-task">
+      <div class="modal" style="width: 380px">
+        <div class="modal-hd">
+          <div class="modal-title">Add Task</div>
+          <button class="modal-close" onclick="closeModal('modal-task')">
+            ×
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-grid full">
+            <div class="fg">
+              <label class="flabel">Task *</label
+              ><input
+                class="finput"
+                id="ft-name"
+                placeholder="e.g. Call Vivek re: pricing"
+              />
+            </div>
+          </div>
+          <div class="form-grid">
+            <div class="fg">
+              <label class="flabel">Time</label
+              ><input class="finput" id="ft-time" placeholder="e.g. 3:00 PM" />
+            </div>
+            <div class="fg">
+              <label class="flabel">Priority</label
+              ><select class="finput" id="ft-priority">
+                <option>Urgent</option>
+                <option>Follow-up</option>
+                <option selected>Planned</option>
+                <option>EOD</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-ft">
+          <button class="btn btn-ghost" onclick="closeModal('modal-task')">
+            Cancel</button
+          ><button class="btn btn-primary" onclick="saveTask()">
+            Add Task
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- ═══════════════ SCRIPT ═══════════════ -->
+    <script>
+      // ── DATA ──────────────────────────────────────────────────────────────────
+      const leadsData = [
+        {
+          name: "Amit Sharma",
+          phone: "+91 98765 43210",
+          email: "amit@gmail.com",
+          budget: "₹5 Cr",
+          budgetN: 5,
+          bhk: "3 BHK",
+          status: "Hot",
+          source: "Facebook",
+          stage: "New Lead",
+          contacted: "Today, 9 AM",
+          notes: "Interested in sea view unit",
+        },
+        {
+          name: "Rajeev Kulkarni",
+          phone: "+91 97300 12345",
+          email: "rajeev@gmail.com",
+          budget: "₹5 Cr",
+          budgetN: 5,
+          bhk: "3 BHK",
+          status: "Hot",
+          source: "Walk-in",
+          stage: "Qualified",
+          contacted: "Yesterday",
+          notes: "Ready to book if price negotiated",
+        },
+        {
+          name: "Anita Desai",
+          phone: "+91 99876 54321",
+          email: "anita@gmail.com",
+          budget: "₹3.4 Cr",
+          budgetN: 3.4,
+          bhk: "2 BHK",
+          status: "Warm",
+          source: "Facebook",
+          stage: "Interested",
+          contacted: "5 days ago",
+          notes: "Awaiting loan pre-approval",
+        },
+        {
+          name: "Vivek Menon",
+          phone: "+91 98200 45678",
+          email: "vivek@gmail.com",
+          budget: "₹4.75 Cr",
+          budgetN: 4.75,
+          bhk: "3 BHK",
+          status: "Hot",
+          source: "Walk-in",
+          stage: "Interested",
+          contacted: "Today, 11 AM",
+          notes: "Negotiating floor premium",
+        },
+        {
+          name: "Priya Nair",
+          phone: "+91 91234 56789",
+          email: "priya@gmail.com",
+          budget: "₹3.3 Cr",
+          budgetN: 3.3,
+          bhk: "2 BHK",
+          status: "Warm",
+          source: "Website",
+          stage: "New Lead",
+          contacted: "3 days ago",
+          notes: "Needs floor plan, no response",
+        },
+        {
+          name: "Deepak Verma",
+          phone: "+91 88001 23456",
+          email: "deepak@gmail.com",
+          budget: "₹4.8 Cr",
+          budgetN: 4.8,
+          bhk: "3 BHK",
+          status: "Cold",
+          source: "Referral",
+          stage: "Contacted",
+          contacted: "8 days ago",
+          notes: "Lost interest, try re-engage",
+        },
+        {
+          name: "Sunita Joshi",
+          phone: "+91 77990 11223",
+          email: "sunita@gmail.com",
+          budget: "₹3.5 Cr",
+          budgetN: 3.5,
+          bhk: "2 BHK",
+          status: "Warm",
+          source: "Google Ads",
+          stage: "Contacted",
+          contacted: "4 days ago",
+          notes: "Comparing with another project",
+        },
+        {
+          name: "Meera Shah",
+          phone: "+91 80044 55667",
+          email: "meera@gmail.com",
+          budget: "₹3.2 Cr",
+          budgetN: 3.2,
+          bhk: "2 BHK",
+          status: "New",
+          source: "Broker",
+          stage: "Qualified",
+          contacted: "6 days ago",
+          notes: "First-time buyer",
+        },
+      ];
+
+      const visitsData = [
+        {
+          name: "Kiran Patil",
+          phone: "+91 90000 78901",
+          bhk: "3 BHK",
+          date: "2026-03-26",
+          time: "10:00 AM",
+          agent: "Rohan Agarwal",
+          status: "Scheduled",
+        },
+        {
+          name: "Ritu Malhotra",
+          phone: "+91 91111 22334",
+          bhk: "2 BHK",
+          date: "2026-03-26",
+          time: "2:00 PM",
+          agent: "Priya Sharma",
+          status: "Scheduled",
+        },
+        {
+          name: "Vivek Menon",
+          phone: "+91 98200 45678",
+          bhk: "3 BHK",
+          date: "2026-03-24",
+          time: "11:00 AM",
+          agent: "Rohan Agarwal",
+          status: "Completed",
+        },
+        {
+          name: "Rajeev Kulkarni",
+          phone: "+91 97300 12345",
+          bhk: "3 BHK",
+          date: "2026-03-22",
+          time: "3:00 PM",
+          agent: "Sanjay Mehta",
+          status: "Completed",
+        },
+        {
+          name: "Amit Sharma",
+          phone: "+91 98765 43210",
+          bhk: "3 BHK",
+          date: "2026-03-20",
+          time: "10:00 AM",
+          agent: "Rohan Agarwal",
+          status: "Completed",
+        },
+        {
+          name: "Sunita Joshi",
+          phone: "+91 77990 11223",
+          bhk: "2 BHK",
+          date: "2026-03-27",
+          time: "12:00 PM",
+          agent: "Priya Sharma",
+          status: "Scheduled",
+        },
+        {
+          name: "Anita Desai",
+          phone: "+91 99876 54321",
+          bhk: "2 BHK",
+          date: "2026-03-18",
+          time: "4:00 PM",
+          agent: "Sanjay Mehta",
+          status: "Cancelled",
+        },
+        {
+          name: "Deepak Verma",
+          phone: "+91 88001 23456",
+          bhk: "3 BHK",
+          date: "2026-03-15",
+          time: "11:00 AM",
+          agent: "Rohan Agarwal",
+          status: "No-show",
+        },
+      ];
+
+      const bookingsData = [
+        {
+          name: "Suresh Iyer",
+          phone: "+91 93001 11223",
+          unit: "A-1204 | 3 BHK",
+          floor: "12",
+          amount: "₹5.00 Cr",
+          date: "2026-03-20",
+          status: "Agreement Signed",
+        },
+        {
+          name: "Nandita Roy",
+          phone: "+91 94002 22334",
+          unit: "B-0803 | 2 BHK",
+          floor: "8",
+          amount: "₹3.20 Cr",
+          date: "2026-03-18",
+          status: "Agreement Signed",
+        },
+        {
+          name: "Prashant Nair",
+          phone: "+91 95003 33445",
+          unit: "C-1506 | 3 BHK",
+          floor: "15",
+          amount: "₹5.00 Cr",
+          date: "2026-03-15",
+          status: "Agreement Pending",
+        },
+        {
+          name: "Kavita Singh",
+          phone: "+91 96004 44556",
+          unit: "A-0701 | 2 BHK",
+          floor: "7",
+          amount: "₹3.20 Cr",
+          date: "2026-03-12",
+          status: "Agreement Pending",
+        },
+        {
+          name: "Arun Iyer",
+          phone: "+91 97005 55667",
+          unit: "A-1804 | 3 BHK",
+          floor: "18",
+          amount: "₹5.00 Cr",
+          date: "2026-03-10",
+          status: "Token Paid",
+        },
+        {
+          name: "Meena Kapoor",
+          phone: "+91 98006 66778",
+          unit: "B-1103 | 2 BHK",
+          floor: "11",
+          amount: "₹3.20 Cr",
+          date: "2026-03-05",
+          status: "Agreement Signed",
+        },
+        {
+          name: "Vinod Patel",
+          phone: "+91 99007 77889",
+          unit: "C-0906 | 3 BHK",
+          floor: "9",
+          amount: "₹4.75 Cr",
+          date: "2026-02-28",
+          status: "Agreement Pending",
+        },
+        {
+          name: "Sheetal Joshi",
+          phone: "+91 90008 88990",
+          unit: "B-0603 | 2 BHK",
+          floor: "6",
+          amount: "₹3.20 Cr",
+          date: "2026-02-20",
+          status: "Token Paid",
+        },
+      ];
+
+      const followupsData = [
+        {
+          name: "Priya Nair",
+          phone: "+91 91234 56789",
+          priority: "Urgent",
+          type: "Call",
+          due: "Today",
+          notes: "No response for 3 days, urgent follow-up needed",
+        },
+        {
+          name: "Sunita Joshi",
+          phone: "+91 77990 11223",
+          priority: "Urgent",
+          type: "WhatsApp",
+          due: "Today",
+          notes: "Requested floor plan, send and follow up",
+        },
+        {
+          name: "Deepak Verma",
+          phone: "+91 88001 23456",
+          priority: "High",
+          type: "Call",
+          due: "Today",
+          notes: "Re-engagement after 8 days of silence",
+        },
+        {
+          name: "Anita Desai",
+          phone: "+91 99876 54321",
+          priority: "High",
+          type: "Call",
+          due: "Tomorrow",
+          notes: "Loan approval expected, check status",
+        },
+        {
+          name: "Meera Shah",
+          phone: "+91 80044 55667",
+          priority: "Medium",
+          type: "Email",
+          due: "27 Mar",
+          notes: "Send project brochure and pricing sheet",
+        },
+        {
+          name: "Amit Sharma",
+          phone: "+91 98765 43210",
+          priority: "Medium",
+          type: "WhatsApp",
+          due: "28 Mar",
+          notes: "Check if he has shared documents for KYC",
+        },
+        {
+          name: "Vivek Menon",
+          phone: "+91 98200 45678",
+          priority: "Low",
+          type: "Call",
+          due: "29 Mar",
+          notes: "Price negotiation update call",
+        },
+        {
+          name: "Rajeev Kulkarni",
+          phone: "+91 97300 12345",
+          priority: "Low",
+          type: "Site Visit",
+          due: "30 Mar",
+          notes: "Second site visit for family",
+        },
+      ];
+
+      const campaignsData = [
+        {
+          icon: "💬",
+          name: "March Launch Offer",
+          channel: "WhatsApp",
+          audience: "All Leads",
+          sent: 420,
+          opened: 189,
+          replies: 34,
+          status: "Active",
+          progress: 45,
+        },
+        {
+          icon: "📧",
+          name: "2 BHK Exclusive Deal",
+          channel: "Email",
+          audience: "2 BHK Interest",
+          sent: 210,
+          opened: 98,
+          replies: 18,
+          status: "Active",
+          progress: 47,
+        },
+        {
+          icon: "📱",
+          name: "Weekend Visit Drive",
+          channel: "SMS",
+          audience: "Warm Leads",
+          sent: 310,
+          opened: 140,
+          replies: 22,
+          status: "Active",
+          progress: 45,
+        },
+        {
+          icon: "💬",
+          name: "Cold Lead Re-engage",
+          channel: "WhatsApp",
+          audience: "Cold Leads",
+          sent: 300,
+          opened: 72,
+          replies: 9,
+          status: "Paused",
+          progress: 24,
+        },
+      ];
+
+      const tasksData = [
+        {
+          name: "Call Vivek Menon – price negotiation",
+          time: "10:30 AM",
+          priority: "Urgent",
+          done: false,
+        },
+        {
+          name: "Send floor plan to Priya Nair",
+          time: "12:00 PM",
+          priority: "Follow-up",
+          done: false,
+        },
+        {
+          name: "Confirm site visit – Rajeev Kulkarni",
+          time: "9:00 AM",
+          priority: "Planned",
+          done: true,
+        },
+        {
+          name: "Schedule callback – Sunita Joshi",
+          time: "2:00 PM",
+          priority: "Planned",
+          done: false,
+        },
+        {
+          name: "Update Kiran Patil's loan query",
+          time: "9:30 AM",
+          priority: "Follow-up",
+          done: true,
+        },
+        {
+          name: "Re-engage cold leads – batch email",
+          time: "5:00 PM",
+          priority: "EOD",
+          done: false,
+        },
+      ];
+
+      // ── STATUS CONFIG ──────────────────────────────────────────────────────────
+      const sC = {
+        Hot: { bg: "var(--rose-soft)", fg: "var(--rose)" },
+        Warm: { bg: "var(--amber-soft)", fg: "var(--amber)" },
+        New: { bg: "var(--accent-soft)", fg: "var(--accent)" },
+        Cold: { bg: "#f1f5f9", fg: "var(--text-3)" },
+        Scheduled: { bg: "var(--accent-soft)", fg: "var(--accent)" },
+        Completed: { bg: "var(--green-soft)", fg: "var(--green)" },
+        Cancelled: { bg: "var(--rose-soft)", fg: "var(--rose)" },
+        "No-show": { bg: "#f1f5f9", fg: "var(--text-3)" },
+        "Agreement Signed": { bg: "var(--green-soft)", fg: "var(--green)" },
+        "Agreement Pending": { bg: "var(--amber-soft)", fg: "var(--amber)" },
+        "Token Paid": { bg: "var(--accent-soft)", fg: "var(--accent)" },
+        Urgent: { bg: "var(--rose-soft)", fg: "var(--rose)" },
+        High: { bg: "var(--amber-soft)", fg: "var(--amber)" },
+        Medium: { bg: "var(--accent-soft)", fg: "var(--accent)" },
+        Low: { bg: "var(--green-soft)", fg: "var(--green)" },
+        Active: { bg: "var(--green-soft)", fg: "var(--green)" },
+        Paused: { bg: "#f1f5f9", fg: "var(--text-3)" },
+      };
+      const pC = {
+        Urgent: { bg: "var(--rose-soft)", fg: "var(--rose)" },
+        "Follow-up": { bg: "var(--amber-soft)", fg: "var(--amber)" },
+        Planned: { bg: "var(--accent-soft)", fg: "var(--accent)" },
+        EOD: { bg: "#f1f5f9", fg: "var(--text-3)" },
+      };
+
+      function badge(val) {
+        const c = sC[val] || { bg: "#f1f5f9", fg: "var(--text-3)" };
+        return `<span class="badge" style="background:${c.bg};color:${c.fg}"><span class="badge-dot" style="background:${c.fg}"></span>${val}</span>`;
+      }
+
+      // ── TOPBAR ACTIONS PER PAGE ──
+      const topbarActions = {
+        dashboard: `<button class="btn btn-ghost" onclick="exportCSV()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Export CSV</button><button class="btn btn-primary" onclick="openModal('modal-lead')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add Lead</button>`,
+        leads: `<button class="btn btn-ghost" onclick="exportCSV()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Export CSV</button><button class="btn btn-primary" onclick="openModal('modal-lead')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add Lead</button>`,
+        visits: `<button class="btn btn-primary" onclick="openModal('modal-visit')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Schedule Visit</button>`,
+        bookings: `<button class="btn btn-primary" onclick="openModal('modal-booking')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add Booking</button>`,
+        analytics: "",
+        followups: `<button class="btn btn-primary" onclick="openModal('modal-followup')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add Follow-up</button>`,
+        campaigns: `<button class="btn btn-primary" onclick="openModal('modal-campaign')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>New Campaign</button>`,
+      };
+      const pageTitle = {
+        dashboard: "Dashboard",
+        leads: "All Leads",
+        visits: "Site Visits",
+        bookings: "Bookings",
+        analytics: "Analytics",
+        followups: "Follow-ups",
+        campaigns: "Campaigns",
+      };
+
+      // ── NAVIGATION ─────────────────────────────────────────────────────────────
+      function goPage(id) {
+        document
+          .querySelectorAll(".page")
+          .forEach((p) => p.classList.remove("active"));
+        document
+          .querySelectorAll(".nav-item")
+          .forEach((n) => n.classList.toggle("active", n.dataset.page === id));
+        document.getElementById("page-" + id).classList.add("active");
+        document.getElementById("topbar-title").textContent =
+          pageTitle[id] || id;
+        document.getElementById("topbar-actions").innerHTML =
+          topbarActions[id] || "";
+        if (id === "leads") renderLeadsTable();
+        if (id === "visits") renderVisitsTable();
+        if (id === "bookings") renderBookingsTable();
+        if (id === "followups") renderFollowups();
+        if (id === "campaigns") renderCampaigns();
+        window.scrollTo(0, 0);
+      }
+      document
+        .querySelectorAll(".nav-item[data-page]")
+        .forEach((n) =>
+          n.addEventListener("click", () => goPage(n.dataset.page)),
+        );
+
+      // ── CHIP FILTERS ───────────────────────────────────────────────────────────
+      let leadStatusFilter = "all";
+      document
+        .querySelectorAll('.chip[data-group="lead-status"]')
+        .forEach((c) => {
+          c.addEventListener("click", () => {
+            document
+              .querySelectorAll('.chip[data-group="lead-status"]')
+              .forEach((x) => x.classList.remove("active"));
+            c.classList.add("active");
+            leadStatusFilter = c.dataset.val;
+            renderLeadsTable();
+          });
+        });
+
+      // ── RENDER: LEADS TABLE ────────────────────────────────────────────────────
+      function renderLeadsTable() {
+        const q = (
+          document.getElementById("leads-search")?.value || ""
+        ).toLowerCase();
+        const bhk = document.getElementById("leads-bhk-filter")?.value || "all";
+        const src = document.getElementById("leads-src-filter")?.value || "all";
+        let rows = leadsData.filter((l) => {
+          if (q && !l.name.toLowerCase().includes(q) && !l.phone.includes(q))
+            return false;
+          if (bhk !== "all" && l.bhk !== bhk) return false;
+          if (src !== "all" && l.source !== src) return false;
+          if (leadStatusFilter !== "all" && l.status !== leadStatusFilter)
+            return false;
+          return true;
+        });
+        document.getElementById("leads-sub").textContent =
+          `${rows.length} of ${leadsData.length} leads`;
+        document.getElementById("leads-badge").textContent = leadsData.length;
+        const tb = document.getElementById("leads-tbody");
+        if (!rows.length) {
+          tb.innerHTML =
+            '<tr><td colspan="10"><div class="empty-state"><div class="ei">🔍</div><p>No leads match your filters</p></div></td></tr>';
+          return;
+        }
+        tb.innerHTML = rows
+          .map(
+            (l, i) => `<tr>
+    <td style="color:var(--text-3);font-size:12px">${i + 1}</td>
+    <td><div class="td-name">${l.name}</div><div class="td-sub">${l.email}</div></td>
+    <td style="color:var(--text-2);font-size:12px">${l.phone}</td>
+    <td style="font-weight:600">${l.budget}</td>
+    <td>${l.bhk}</td>
+    <td><span style="font-size:12px;color:var(--text-2)">${l.source}</span></td>
+    <td>${badge(l.status)}</td>
+    <td><span style="font-size:12px;color:var(--text-2)">${l.stage}</span></td>
+    <td style="font-size:12px;color:var(--text-3)">${l.contacted}</td>
+    <td><div class="row-acts">
+      <button class="btn btn-sm btn-ghost" onclick="openLeadDetail(${leadsData.indexOf(l)})">View</button>
+      <button class="btn btn-sm btn-ghost" onclick="toast('📞 Calling ${l.name.replace(/'/g, "\\'")}…')">Call</button>
+      <button class="btn btn-sm btn-ghost" onclick="scheduleVisitFor('${l.name.replace(/'/g, "\\'")}','${l.phone}','${l.bhk}')">Visit</button>
+    </div></td>
+  </tr>`,
+          )
+          .join("");
+      }
+
+      // ── LEAD DETAIL ────────────────────────────────────────────────────────────
+      function openLeadDetail(idx) {
+        const l = leadsData[idx];
+        document.getElementById("mld-name").textContent = l.name;
+        document.getElementById("mld-grid").innerHTML = `
+    <div class="detail-item"><div class="dl">Phone</div><div class="dv">${l.phone}</div></div>
+    <div class="detail-item"><div class="dl">Email</div><div class="dv">${l.email}</div></div>
+    <div class="detail-item"><div class="dl">Budget</div><div class="dv">${l.budget}</div></div>
+    <div class="detail-item"><div class="dl">BHK</div><div class="dv">${l.bhk}</div></div>
+    <div class="detail-item"><div class="dl">Source</div><div class="dv">${l.source}</div></div>
+    <div class="detail-item"><div class="dl">Status</div><div class="dv">${badge(l.status)}</div></div>
+    <div class="detail-item"><div class="dl">Stage</div><div class="dv">${l.stage}</div></div>
+    <div class="detail-item"><div class="dl">Last Contact</div><div class="dv">${l.contacted}</div></div>
+    <div class="detail-item" style="grid-column:1/-1"><div class="dl">Notes</div><div class="dv" style="font-weight:400;color:var(--text-2)">${l.notes}</div></div>`;
+        document.getElementById("mld-timeline").innerHTML = `
+    <div class="tl-item"><div class="tl-dot" style="background:var(--green)"></div><div><div class="tl-text">Lead created</div><div class="tl-time">via ${l.source}</div></div></div>
+    <div class="tl-item"><div class="tl-dot" style="background:var(--accent)"></div><div><div class="tl-text">First contact made</div><div class="tl-time">${l.contacted}</div></div></div>
+    <div class="tl-item"><div class="tl-dot" style="background:var(--amber)"></div><div><div class="tl-text">Stage: ${l.stage}</div><div class="tl-time">Current stage</div></div></div>`;
+        document.getElementById("mld-call-btn").onclick = () => {
+          toast(`📞 Calling ${l.name}…`);
+          closeModal("modal-lead-detail");
+        };
+        document.getElementById("mld-visit-btn").onclick = () => {
+          closeModal("modal-lead-detail");
+          scheduleVisitFor(l.name, l.phone, l.bhk);
+        };
+        document.getElementById("mld-wa-btn").onclick = () => {
+          toast(`💬 WhatsApp opened for ${l.name}`);
+          closeModal("modal-lead-detail");
+        };
+        openModal("modal-lead-detail");
+      }
+
+      // ── RENDER: VISITS TABLE ───────────────────────────────────────────────────
+      function renderVisitsTable() {
+        const q = (
+          document.getElementById("visits-search")?.value || ""
+        ).toLowerCase();
+        const sf =
+          document.getElementById("visits-status-filter")?.value || "all";
+        let rows = visitsData.filter((v) => {
+          if (q && !v.name.toLowerCase().includes(q)) return false;
+          if (sf !== "all" && v.status !== sf) return false;
+          return true;
+        });
+        const tb = document.getElementById("visits-tbody");
+        if (!rows.length) {
+          tb.innerHTML =
+            '<tr><td colspan="9"><div class="empty-state"><div class="ei">🏠</div><p>No visits found</p></div></td></tr>';
+          return;
+        }
+        tb.innerHTML = rows
+          .map(
+            (v, i) => `<tr>
+    <td style="color:var(--text-3);font-size:12px">${i + 1}</td>
+    <td><div class="td-name">${v.name}</div></td>
+    <td style="color:var(--text-2);font-size:12px">${v.phone}</td>
+    <td>${v.bhk}</td>
+    <td style="font-size:12px;color:var(--text-2)">${v.date}</td>
+    <td style="font-size:12px;font-weight:600">${v.time}</td>
+    <td style="font-size:12px;color:var(--text-2)">${v.agent}</td>
+    <td>${badge(v.status)}</td>
+    <td><div class="row-acts">
+      <button class="btn btn-sm btn-ghost" onclick="openVisitDetail(${visitsData.indexOf(v)})">View</button>
+      <button class="btn btn-sm btn-ghost" onclick="toast('📞 Calling ${v.name.replace(/'/g, "\\'")}…')">Call</button>
+    </div></td>
+  </tr>`,
+          )
+          .join("");
+      }
+
+      function openVisitDetail(idx) {
+        const v = visitsData[idx];
+        document.getElementById("mvd-title").textContent = `Visit — ${v.name}`;
+        document.getElementById("mvd-grid").innerHTML = `
+    <div class="detail-item"><div class="dl">Visitor</div><div class="dv">${v.name}</div></div>
+    <div class="detail-item"><div class="dl">Phone</div><div class="dv">${v.phone}</div></div>
+    <div class="detail-item"><div class="dl">BHK</div><div class="dv">${v.bhk}</div></div>
+    <div class="detail-item"><div class="dl">Status</div><div class="dv">${badge(v.status)}</div></div>
+    <div class="detail-item"><div class="dl">Date</div><div class="dv">${v.date}</div></div>
+    <div class="detail-item"><div class="dl">Time</div><div class="dv">${v.time}</div></div>
+    <div class="detail-item"><div class="dl">Agent</div><div class="dv">${v.agent}</div></div>`;
+        document.getElementById("mvd-complete-btn").onclick = () => {
+          visitsData[idx].status = "Completed";
+          renderVisitsTable();
+          toast(`✅ ${v.name}'s visit marked Completed`);
+          closeModal("modal-visit-detail");
+        };
+        document.getElementById("mvd-cancel-btn").onclick = () => {
+          visitsData[idx].status = "Cancelled";
+          renderVisitsTable();
+          toast(`❌ Visit for ${v.name} cancelled`);
+          closeModal("modal-visit-detail");
+        };
+        document.getElementById("mvd-call-btn").onclick = () =>
+          toast(`📞 Calling ${v.name}…`);
+        openModal("modal-visit-detail");
+      }
+
+      // ── RENDER: BOOKINGS TABLE ─────────────────────────────────────────────────
+      function renderBookingsTable() {
+        const q = (
+          document.getElementById("bookings-search")?.value || ""
+        ).toLowerCase();
+        const sf =
+          document.getElementById("bookings-status-filter")?.value || "all";
+        let rows = bookingsData.filter((b) => {
+          if (q && !b.name.toLowerCase().includes(q)) return false;
+          if (sf !== "all" && b.status !== sf) return false;
+          return true;
+        });
+        const tb = document.getElementById("bookings-tbody");
+        if (!rows.length) {
+          tb.innerHTML =
+            '<tr><td colspan="9"><div class="empty-state"><div class="ei">📋</div><p>No bookings found</p></div></td></tr>';
+          return;
+        }
+        tb.innerHTML = rows
+          .map(
+            (b, i) => `<tr>
+    <td style="color:var(--text-3);font-size:12px">${i + 1}</td>
+    <td><div class="td-name">${b.name}</div></td>
+    <td style="color:var(--text-2);font-size:12px">${b.phone}</td>
+    <td style="font-size:12px;font-weight:600">${b.unit}</td>
+    <td style="font-size:12px;color:var(--text-2)">Floor ${b.floor}</td>
+    <td style="font-weight:700;color:var(--green)">${b.amount}</td>
+    <td style="font-size:12px;color:var(--text-2)">${b.date}</td>
+    <td>${badge(b.status)}</td>
+    <td><div class="row-acts">
+      <button class="btn btn-sm btn-ghost" onclick="openBookingDetail(${bookingsData.indexOf(b)})">View</button>
+      <button class="btn btn-sm btn-ghost" onclick="toast('📞 Calling ${b.name.replace(/'/g, "\\'")}…')">Call</button>
+    </div></td>
+  </tr>`,
+          )
+          .join("");
+      }
+
+      function openBookingDetail(idx) {
+        const b = bookingsData[idx];
+        document.getElementById("mbd-title").textContent =
+          `Booking — ${b.name}`;
+        document.getElementById("mbd-grid").innerHTML = `
+    <div class="detail-item"><div class="dl">Buyer</div><div class="dv">${b.name}</div></div>
+    <div class="detail-item"><div class="dl">Phone</div><div class="dv">${b.phone}</div></div>
+    <div class="detail-item"><div class="dl">Unit</div><div class="dv">${b.unit}</div></div>
+    <div class="detail-item"><div class="dl">Floor</div><div class="dv">${b.floor}</div></div>
+    <div class="detail-item"><div class="dl">Amount</div><div class="dv" style="color:var(--green)">${b.amount}</div></div>
+    <div class="detail-item"><div class="dl">Booking Date</div><div class="dv">${b.date}</div></div>
+    <div class="detail-item"><div class="dl">Status</div><div class="dv">${badge(b.status)}</div></div>`;
+        document.getElementById("mbd-sign-btn").onclick = () => {
+          bookingsData[idx].status = "Agreement Signed";
+          renderBookingsTable();
+          toast(`📝 Agreement marked signed for ${b.name}`);
+          closeModal("modal-booking-detail");
+        };
+        document.getElementById("mbd-call-btn").onclick = () =>
+          toast(`📞 Calling ${b.name}…`);
+        openModal("modal-booking-detail");
+      }
+
+      // ── RENDER: FOLLOW-UPS ─────────────────────────────────────────────────────
+      function renderFollowups() {
+        const pf =
+          document.getElementById("fu-priority-filter")?.value || "all";
+        let rows = followupsData.filter(
+          (f) => pf === "all" || f.priority === pf,
+        );
+        const c = sC;
+        document.getElementById("fu-list").innerHTML =
+          rows
+            .map((f, i) => {
+              const pc = c[f.priority] || c.Medium;
+              const tc =
+                { Call: "📞", WhatsApp: "💬", Email: "📧", "Site Visit": "🏠" }[
+                  f.type
+                ] || "📋";
+              return `<div class="fu-item">
+      <div class="fu-info">
+        <div class="fu-name">${f.name}</div>
+        <div class="fu-meta">${f.phone} · Due: ${f.due} · ${tc} ${f.type}</div>
+        <div class="fu-meta" style="margin-top:3px;color:var(--text-2)">${f.notes}</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
+        ${badge(f.priority)}
+        <div class="fu-acts">
+          <button class="btn btn-sm btn-primary" onclick="toast('${tc} Follow-up initiated for ${f.name.replace(/'/g, "\\'")}')">Do Now</button>
+          <button class="btn btn-sm btn-ghost" onclick="followupsData.splice(${followupsData.indexOf(f)},1);renderFollowups();toast('✅ Marked done')">Done</button>
+        </div>
+      </div>
+    </div>`;
+            })
+            .join("") ||
+          '<div class="empty-state"><div class="ei">🎉</div><p>All follow-ups completed!</p></div>';
+      }
+
+      // ── RENDER: CAMPAIGNS ──────────────────────────────────────────────────────
+      function renderCampaigns() {
+        const chIcons = { WhatsApp: "💬", Email: "📧", SMS: "📱" };
+        document.getElementById("camp-grid").innerHTML = campaignsData
+          .map((c, i) => {
+            const sc = sC[c.status] || sC.Active;
+            const openRate = Math.round((c.opened / c.sent) * 100);
+            return `<div class="camp-card">
+      <div class="camp-icon">${c.icon}</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+        <div class="camp-name">${c.name}</div>
+        ${badge(c.status)}
+      </div>
+      <div class="camp-meta">${chIcons[c.channel] || "📋"} ${c.channel} · ${c.audience}</div>
+      <div class="camp-stat"><span class="camp-stat-label">Sent</span><span class="camp-stat-val">${c.sent}</span></div>
+      <div class="camp-stat"><span class="camp-stat-label">Opened</span><span class="camp-stat-val">${c.opened} (${openRate}%)</span></div>
+      <div class="camp-stat"><span class="camp-stat-label">Replies</span><span class="camp-stat-val">${c.replies}</span></div>
+      <div class="camp-progress"><div class="camp-bar" style="width:${c.progress}%;background:${sc.fg}"></div></div>
+      <div style="display:flex;gap:7px;margin-top:12px">
+        <button class="btn btn-sm btn-ghost" style="flex:1;justify-content:center" onclick="toast('📊 Campaign analytics opened')">Analytics</button>
+        <button class="btn btn-sm btn-${c.status === "Active" ? "danger" : "success"}" style="flex:1;justify-content:center" onclick="toggleCampaign(${i})">${c.status === "Active" ? "Pause" : "Resume"}</button>
+      </div>
+    </div>`;
+          })
+          .join("");
+      }
+      function toggleCampaign(i) {
+        campaignsData[i].status =
+          campaignsData[i].status === "Active" ? "Paused" : "Active";
+        renderCampaigns();
+        toast(
+          campaignsData[i].status === "Active"
+            ? "▶️ Campaign resumed"
+            : "⏸ Campaign paused",
+        );
+      }
+
+      // ── TASKS ──────────────────────────────────────────────────────────────────
+      function renderTasks() {
+        const done = tasksData.filter((t) => t.done).length;
+        document.getElementById("task-count").textContent =
+          `${tasksData.length - done} pending · ${done} done`;
+        document.getElementById("tasks-body").innerHTML =
+          tasksData
+            .map((t, i) => {
+              const pc = t.done
+                ? { bg: "var(--green-soft)", fg: "var(--green)" }
+                : pC[t.priority] || pC.Planned;
+              return `<div class="task-item" onclick="toggleTask(${i})">
+      <div class="task-check${t.done ? " done" : ""}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div class="task-bi">
+        <div class="task-name${t.done ? " done" : ""}">${t.name}</div>
+        <div class="task-meta"><span class="task-badge" style="background:${pc.bg};color:${pc.fg}">${t.done ? "Done" : t.priority}</span>${t.time}</div>
+      </div>
+    </div>`;
+            })
+            .join("") +
+          `<button class="add-task-btn" onclick="event.stopPropagation();openModal('modal-task')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add Task</button>`;
+      }
+      function toggleTask(i) {
+        tasksData[i].done = !tasksData[i].done;
+        renderTasks();
+        toast(tasksData[i].done ? "✅ Task marked done" : "↩️ Task reopened");
+      }
+
+      // ── SAVE FUNCTIONS ─────────────────────────────────────────────────────────
+      function saveLead() {
+        const name = document.getElementById("fl-name").value.trim();
+        const phone = document.getElementById("fl-phone").value.trim();
+        if (!name || !phone) {
+          toast("⚠️ Name and Phone required");
+          return;
+        }
+        const bv = document.getElementById("fl-budget").value.split("|");
+        leadsData.unshift({
+          name,
+          phone,
+          email: document.getElementById("fl-email").value,
+          budget: bv[0],
+          budgetN: parseFloat(bv[1]),
+          bhk: document.getElementById("fl-bhk").value,
+          status: document.getElementById("fl-status").value,
+          source: document.getElementById("fl-source").value,
+          stage: document.getElementById("fl-stage").value,
+          contacted: "Just now",
+          notes: document.getElementById("fl-notes").value,
+        });
+        closeModal("modal-lead");
+        ["fl-name", "fl-phone", "fl-email", "fl-notes"].forEach(
+          (id) => (document.getElementById(id).value = ""),
+        );
+        renderLeadsTable();
+        toast(`✅ Lead "${name}" added!`);
+      }
+
+      function saveVisit() {
+        const name = document.getElementById("fv-name").value.trim();
+        const phone = document.getElementById("fv-phone").value.trim();
+        if (!name || !phone) {
+          toast("⚠️ Name and Phone required");
+          return;
+        }
+        visitsData.unshift({
+          name,
+          phone,
+          bhk: document.getElementById("fv-bhk").value,
+          date: document.getElementById("fv-date").value || "TBD",
+          time: document.getElementById("fv-time").value,
+          agent: document.getElementById("fv-agent").value,
+          status: "Scheduled",
+        });
+        closeModal("modal-visit");
+        ["fv-name", "fv-phone"].forEach(
+          (id) => (document.getElementById(id).value = ""),
+        );
+        renderVisitsTable();
+        toast(`🏠 Visit scheduled for ${name}!`);
+      }
+
+      function scheduleVisitFor(name, phone, bhk) {
+        document.getElementById("fv-name").value = name;
+        document.getElementById("fv-phone").value = phone;
+        document.getElementById("fv-bhk").value = bhk;
+        openModal("modal-visit");
+      }
+
+      function saveBooking() {
+        const name = document.getElementById("fb-name").value.trim();
+        const phone = document.getElementById("fb-phone").value.trim();
+        if (!name || !phone) {
+          toast("⚠️ Name and Phone required");
+          return;
+        }
+        bookingsData.unshift({
+          name,
+          phone,
+          unit: document.getElementById("fb-unit").value,
+          floor: document.getElementById("fb-floor").value || "-",
+          amount: document.getElementById("fb-amount").value,
+          date: document.getElementById("fb-date").value || "Today",
+          status: document.getElementById("fb-status").value,
+        });
+        closeModal("modal-booking");
+        ["fb-name", "fb-phone", "fb-floor"].forEach(
+          (id) => (document.getElementById(id).value = ""),
+        );
+        renderBookingsTable();
+        toast(`📋 Booking added for ${name}!`);
+      }
+
+      function saveFollowup() {
+        const name = document.getElementById("ffu-name").value.trim();
+        if (!name) {
+          toast("⚠️ Lead name required");
+          return;
+        }
+        followupsData.unshift({
+          name,
+          phone: document.getElementById("ffu-phone").value,
+          priority: document.getElementById("ffu-priority").value,
+          type: document.getElementById("ffu-type").value,
+          due: document.getElementById("ffu-date").value || "Today",
+          notes: document.getElementById("ffu-notes").value,
+        });
+        closeModal("modal-followup");
+        ["ffu-name", "ffu-phone", "ffu-notes"].forEach(
+          (id) => (document.getElementById(id).value = ""),
+        );
+        renderFollowups();
+        toast(`📅 Follow-up added for ${name}!`);
+      }
+
+      function saveTask() {
+        const name = document.getElementById("ft-name").value.trim();
+        if (!name) {
+          toast("⚠️ Task description required");
+          return;
+        }
+        tasksData.push({
+          name,
+          time: document.getElementById("ft-time").value || "Today",
+          priority: document.getElementById("ft-priority").value,
+          done: false,
+        });
+        closeModal("modal-task");
+        document.getElementById("ft-name").value = "";
+        document.getElementById("ft-time").value = "";
+        renderTasks();
+        toast("✅ Task added!");
+      }
+
+      function saveCampaign() {
+        const name = document.getElementById("fc-name").value.trim();
+        if (!name) {
+          toast("⚠️ Campaign name required");
+          return;
+        }
+        campaignsData.unshift({
+          icon: "📢",
+          name,
+          channel: document.getElementById("fc-channel").value,
+          audience: document.getElementById("fc-audience").value,
+          sent: 0,
+          opened: 0,
+          replies: 0,
+          status: "Active",
+          progress: 0,
+        });
+        closeModal("modal-campaign");
+        document.getElementById("fc-name").value = "";
+        document.getElementById("fc-msg").value = "";
+        renderCampaigns();
+        toast(`🚀 Campaign "${name}" launched!`);
+      }
+
+      // ── EXPORT CSV ─────────────────────────────────────────────────────────────
+      function exportCSV() {
+        const h = [
+          "Name",
+          "Phone",
+          "Email",
+          "Budget",
+          "BHK",
+          "Status",
+          "Source",
+          "Stage",
+          "Last Contacted",
+        ];
+        const rows = [
+          h,
+          ...leadsData.map((l) => [
+            l.name,
+            l.phone,
+            l.email,
+            l.budget,
+            l.bhk,
+            l.status,
+            l.source,
+            l.stage,
+            l.contacted,
+          ]),
+        ];
+        const csv = rows
+          .map((r) => r.map((c) => `"${c}"`).join(","))
+          .join("\n");
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(new Blob([csv], { type: "text/csv" }));
+        a.download =
+          "Seabreeze_Leads_" + new Date().toISOString().slice(0, 10) + ".csv";
+        a.click();
+        toast("📥 CSV exported!");
+      }
+
+      // ── MODALS ─────────────────────────────────────────────────────────────────
+      function openModal(id) {
+        document.getElementById(id).classList.add("open");
+      }
+      function closeModal(id) {
+        document.getElementById(id).classList.remove("open");
+      }
+      document.querySelectorAll(".modal-overlay").forEach((o) =>
+        o.addEventListener("click", (e) => {
+          if (e.target === o) o.classList.remove("open");
+        }),
+      );
+
+      // ── TOAST ──────────────────────────────────────────────────────────────────
+      function toast(msg) {
+        const el = document.createElement("div");
+        el.className = "toast";
+        el.textContent = msg;
+        document.getElementById("toast-container").appendChild(el);
+        requestAnimationFrame(() =>
+          requestAnimationFrame(() => el.classList.add("show")),
+        );
+        setTimeout(() => {
+          el.classList.remove("show");
+          setTimeout(() => el.remove(), 300);
+        }, 2800);
+      }
+
+      // ── INIT ───────────────────────────────────────────────────────────────────
+      document.getElementById("topbar-date").textContent =
+        new Date().toLocaleDateString("en-IN", {
+          weekday: "short",
+          day: "numeric",
+          month: "short",
+          year: "numeric",
+        });
+      document.getElementById("topbar-actions").innerHTML =
+        topbarActions.dashboard;
+      renderTasks();
+      renderLeadsTable();
+    </script>
+  </body>
+</html>
