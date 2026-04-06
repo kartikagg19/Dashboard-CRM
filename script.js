@@ -1,6 +1,19 @@
 // API Configuration
 const API_URL = '/api';
 
+// Globally bypass Localtunnel/Ngrok warning screens for API requests from other desktops
+const originalFetch = window.fetch;
+window.fetch = async function(resource, config = {}) {
+    if (!config.headers) config.headers = {};
+    // If not a FormData object, append custom header. (Headers on FormData can sometimes be tricky, but standard objects are fine)
+    if (config.headers instanceof Headers) {
+        config.headers.append('Bypass-Tunnel-Reminder', 'true');
+    } else {
+        config.headers['Bypass-Tunnel-Reminder'] = 'true';
+    }
+    return originalFetch(resource, config);
+};
+
 // ── DATA (Initial placeholders, will be populated by API) ────────────────────
 let leadsData = [];
 let visitsData = [];
