@@ -1,5 +1,5 @@
 // API Configuration
-const API_URL = `http://${window.location.hostname}:5000/api`;
+const API_URL = '/api';
 
 // ── DATA (Initial placeholders, will be populated by API) ────────────────────
 let leadsData = [];

@@ -10,6 +10,11 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
+const path = require('path');
+// Serve the frontend static files directly from the parent directory
+app.use(express.static(path.join(__dirname, '..')));
+
+
 // ── MongoDB Connection (with graceful fallback) ────────────────────────────
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/crm_db';
 let dbConnected = false;
@@ -194,7 +199,12 @@ app.get('/', (req, res) => {
 });
 
 // ── Start Server ───────────────────────────────────────────────────────────
-app.listen(PORT, () => {
-    console.log(`🚀 Server started on http://localhost:${PORT}`);
-});
+if (process.env.NODE_ENV !== 'production') {
+    app.listen(PORT, () => {
+        console.log(`🚀 Server started on http://localhost:${PORT}`);
+    });
+}
+
+// Export for Vercel serverless
+module.exports = app;
 

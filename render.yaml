@@ -1,9 +1,0 @@
-services:
-  - type: web
-    name: seabreeze-crm
-    env: node
-    buildCommand: cd backend && npm install
-    startCommand: cd backend && node server.js
-    envVars:
-      - key: MONGO_URI
-        sync: false
